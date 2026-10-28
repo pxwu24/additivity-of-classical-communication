@@ -2,7 +2,7 @@
 
 This repository is the planned Lean companion to the forthcoming paper of the same title. It organizes the formalization of a Schur-weighted block entropy inequality, the entropic criteria connecting it to channel capacity, and the resulting strong-additivity statements for phase-covariant and qubit-output channels.
 
-**Current status:** this initial version contains the mathematical overview and formalization plan. Lean proof files have not yet been supplied or incorporated. The statements below describe the forthcoming manuscript; they are not yet certified by a Lean build in this repository. See the [verification status](docs/verification.md) and [planned module organization](SchurEntropy/README.md).
+**Current status:** active Lean formalization. The complete rank-one block entropy inequality and supporting matrix, entropy, and finite-sum results have been checked. The full block entropy theorem and its two analytic lemmas remain in progress. See the [verification status](docs/verification.md), [source organization](SchurEntropy/README.md), and [axiom audit](Audit.lean).
 
 ## Contents
 
@@ -307,19 +307,9 @@ is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses o
 
 ## Formalization index
 
-The following module names are planned destinations, not links to completed proofs. Exact Lean declarations and source links will be recorded when the proof files are added and checked.
+The [verification index](docs/verification.md) distinguishes completed Lean results from the remaining manuscript statements. The complete rank-one case is proved in [RankOneInequality.lean](SchurEntropy/RankOneInequality.lean). The general finite-sum argument is formalized in [BlockReduction.lean](SchurEntropy/BlockReduction.lean), with its remaining analytic inputs explicit.
 
-| Manuscript result | Planned Lean module | Status |
-| --- | --- | --- |
-| Strong additivity for phase-covariant channels | `SchurEntropy.Channels.PhaseCovariant` | Pending source |
-| Strong additivity for the qubit-output class and all qubit channels | `SchurEntropy.Channels.QubitOutput` | Pending source |
-| Standard entropic criterion | `SchurEntropy.Capacity.StandardCriterion` | Pending source |
-| Weaker entropic criterion | `SchurEntropy.Capacity.OutputCenterCriterion` | Pending source |
-| Schur-weighted block entropy inequality | `SchurEntropy.Entropy.BlockInequality` | Pending source |
-| Optimized concavity and attainment | `SchurEntropy.Entropy.OptimizedConcavity` | Pending source |
-| Scalar joint convexity | `SchurEntropy.Entropy.ScalarConvexity` | Pending source |
-
-See [verification status](docs/verification.md) for the current scope and [module organization](SchurEntropy/README.md) for the proposed source layout. Reproducible build instructions will be added with the pinned Lean toolchain and proof sources.
+The optimized concavity lemma, scalar joint convexity lemma, and full block entropy inequality are still in progress. The entropic criteria and channel applications remain future formalization work. Build and axiom-audit instructions are in the [verification index](docs/verification.md).
 
 ## References
 

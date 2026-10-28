@@ -1,0 +1,29 @@
+SchurEntropy/Isometry.lean contains an adapted excerpt from:
+  KitaKen1/qubit-strong-additivity
+  commit 90e61c463deb42067c109c46f048c6374dfc5945
+  lean/QubitAdditivity/BetaIsometryEntropy.lean
+  https://github.com/KitaKen1/qubit-strong-additivity
+
+The excerpt is licensed under Apache-2.0 (Apache-2.0.txt).
+Modifications narrow its imports, rename its namespace, and use entropy in bits.
+
+SchurEntropy/RankOneEntropy.lean contains an adapted orthogonal-support
+entropy argument from the same upstream commit:
+  lean/QubitAdditivity/BetaOrthogonalEntropy.lean
+
+This excerpt is also licensed under Apache-2.0. Modifications narrow imports
+and restate the result for matrix entropy in bits; the isometry-increment and
+block-column cancellation proofs are added in this repository.
+
+Relevant upstream notice:
+Strong Holevo Additivity for Qubit Channels
+Lean formalization and publication packaging, 2026.
+
+Includes source from Physlib, commit a4ef46125b32bb2599ab42d9c3a95e1d88ca75ff,
+and OpenAI math, commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb.
+Original source notices and Apache-2.0 licenses are preserved in lean/vendor/.
+Adapted excerpts identify their sources in lean/QubitAdditivity/Imported/.
+The complete generated Lean4Web edition preserves those notices and documents
+its packaging changes in its header and lean4web/sources.json.
+
+The repository layout follows KitaKen1/bapat-lal-q-permanent-lean.
