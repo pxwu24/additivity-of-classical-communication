@@ -1,8 +1,8 @@
 # A Schur-weighted block entropy inequality and its application to classical capacity of quantum channels
 
-This repository is the planned Lean companion to the forthcoming paper of the same title. It organizes the formalization of a Schur-weighted block entropy inequality, the entropic criteria connecting it to channel capacity, and the resulting strong-additivity statements for phase-covariant and qubit-output channels.
+This repository is the Lean companion to the forthcoming paper of the same title. It contains formal proofs of a Schur-weighted block entropy inequality and two entropic criteria for Holevo additivity. The manuscript's channel applications are described below.
 
-**Current status:** the optimized concavity lemma (including minimum attainment), the scalar joint-convexity lemma, and the Schur-weighted block entropy inequality are fully proved in Lean. The proofs cover positive semidefinite inputs and zero trace parameters. The channel-capacity applications and entropic criteria remain future formalization work. See the [verification index](docs/verification.md) and [axiom audit](Audit.lean).
+**Current status:** five manuscript results are fully proved in Lean: the optimized concavity lemma (including minimum attainment), the scalar joint-convexity lemma, the Schur-weighted block entropy inequality, and both entropic criteria for additivity. The matrix results cover positive semidefinite inputs and zero trace parameters; the weaker criterion includes singular optimal output centers. The phase-covariant and qubit-output channel applications remain future formalization work. See the [verification index](docs/verification.md) and [axiom audit](Audit.lean).
 
 ## Contents
 
@@ -141,6 +141,8 @@ Then
 =\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
 ```
 
+**Lean verification of the standard criterion:** [`standard_entropic_criterion`](SchurEntropy/Capacity/StandardCriterion.lean), with the exact finite-ensemble hypothesis in [`StandardEntropicCriterion`](SchurEntropy/Capacity/Definitions.lean).
+
 ### Weaker criterion: preserve one output-center expectation
 
 For any ensemble $`\{p_\ell,\eta_\ell\}`$ attaining $`\chi_{\max}(\mathcal{A})`$, the average output
@@ -181,6 +183,8 @@ Then
 ```
 
 The standard compatibility condition implies the weaker one by linearity. The weaker condition fixes only the expectation of $`\log_2\sigma_{\mathcal{A}}`$ at the output of the first channel, while still preserving the second reduced input state. This relaxation is used in the manuscript's treatment of higher-dimensional phase-covariant channels.
+
+**Lean verification of the weaker criterion:** [`output_center_entropic_criterion`](SchurEntropy/Capacity/OutputCenterCriterion.lean), with the exact hypothesis in [`OutputCenterEntropicCriterion`](SchurEntropy/Capacity/CriterionStatements.lean). The same file proves the criterion for the average output of **any** optimal ensemble. [Optimal-ensemble existence](SchurEntropy/Capacity/OptimalEnsemble.lean), [output support inclusion and center bounds](SchurEntropy/Capacity/OutputCenterRadius.lean), and [the implication from the standard hypothesis](SchurEntropy/Capacity/CriterionStatements.lean) are also proved. Uniqueness of the optimal output center is cited background; it is not separately formalized or needed by these proofs.
 
 ## Schur-weighted block entropy inequality
 
@@ -312,6 +316,8 @@ is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses o
 | Optimized concavity and attainment | `SchurEntropy.optimizedConcavity` | [OptimizedBridge.lean](SchurEntropy/OptimizedBridge.lean) |
 | Scalar joint convexity | `SchurEntropy.scalar_joint_convexity` | [ScalarConvexity.lean](SchurEntropy/ScalarConvexity.lean) |
 | Schur-weighted block entropy inequality | `SchurEntropy.block_entropy_inequality` | [Results.lean](SchurEntropy/Results.lean) |
+| Standard entropic criterion | `SchurEntropy.Capacity.standard_entropic_criterion` | [StandardCriterion.lean](SchurEntropy/Capacity/StandardCriterion.lean) |
+| Weaker output-center criterion | `SchurEntropy.Capacity.output_center_entropic_criterion` | [OutputCenterCriterion.lean](SchurEntropy/Capacity/OutputCenterCriterion.lean) |
 
 The [verification index](docs/verification.md) records the exact scope, supporting results, pinned dependencies, and audit procedure. To reproduce the checks with Lean's `elan` version manager installed:
 
@@ -320,7 +326,7 @@ lake exe cache get
 ./scripts/check.sh
 ```
 
-The entropic criteria and channel-capacity applications stated above are not yet formalized here.
+The phase-covariant and qubit-output channel applications, and the classical-capacity coding and regularization theorems, are not yet formalized here.
 
 ## References
 

@@ -38,6 +38,8 @@ Further adapted source from the same upstream project and commit:
   SchurEntropy/OptimizedPSDExistence.lean   BetaDualBoundary.lean
   SchurEntropy/OptimizedBoundary.lean       BetaDualBoundary.lean
   SchurEntropy/StrictLogOrder.lean          BetaLogOrder.lean
+  SchurEntropy/Capacity/WeakReduction.lean  UpperBound.lean
+  SchurEntropy/Capacity/GibbsMatrix.lean    BetaDualExistence.lean
 
 Upstream paths above are relative to lean/QubitAdditivity/ in
 https://github.com/KitaKen1/qubit-strong-additivity at commit
@@ -52,6 +54,13 @@ interfaces needed here. OptimizedBridgeBase.lean and OptimizedBridge.lean
 provide the conversion to entropy in bits and the literal sInf definition.
 StrictLogOrder.lean narrows imports and changes the namespace; its cited
 mathematical proofs are unchanged.
+
+Capacity/WeakReduction.lean adapts the finite-ensemble mixing and pure-to-mixed
+argument to preserve one output logarithmic expectation. Capacity/GibbsMatrix.lean
+adapts the scalar-line derivative argument to prove the entropy tangent bound.
+The generic standard entropic criterion in UpperBound.lean is imported directly
+from the pinned dependency; the local StandardCriterion.lean proves its exact
+conversion to the manuscript's entropy convention in bits.
 
 Relevant upstream notice, reproduced below (paths refer to the upstream
 project):
