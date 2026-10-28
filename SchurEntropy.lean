@@ -1,16 +1,11 @@
-import SchurEntropy.Definitions
+import SchurEntropy.Results
 import SchurEntropy.EntropyScaling
-import SchurEntropy.EntropyContinuity
-import SchurEntropy.BlockAlgebra
-import SchurEntropy.BlockTheorem
-import SchurEntropy.RankOneInequality
-import SchurEntropy.ScalarHessian
-import SchurEntropy.MultiBlockHessian
 
 /-!
-The imports above collect kernel-checked results. The manuscript statements
-`OptimizedConcavityStatement`, `ScalarConvexityStatement`, and
-`BlockEntropyStatement` remain explicit propositions until their complete
-proofs are added. A successful build of this intermediate root module must
-not be interpreted as a proof of those three statements.
+# Formal proofs accompanying the manuscript
+
+The three complete manuscript results are exported through `Results`:
+`optimizedConcavity`, `scalar_joint_convexity`, and `block_entropy_inequality`.
+The underlying statements use unnormalized spectral entropy in bits on actual
+complex matrices. No additional analytic assumptions are introduced.
 -/

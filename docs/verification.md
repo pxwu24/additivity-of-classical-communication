@@ -1,45 +1,55 @@
 # Verification status
 
-This is an active formalization in Lean 4. The checked source uses actual complex matrices and the unnormalized spectral entropy in bits, with `0 log 0 = 0`. The complete rank-one block entropy inequality is proved. The full arbitrary-rank theorem and the two analytic lemmas are still being assembled; a successful intermediate build does not certify those three statements.
+The two analytic lemmas and the Schur-weighted block entropy inequality are proved in Lean 4. Their exported theorems have no additional analytic hypotheses. The definitions use actual complex matrices and unnormalized spectral entropy in bits, with `0 log 0 = 0`.
 
-## Checked results
+## Completed manuscript results
+
+| Manuscript result | Lean declaration | Source |
+| --- | --- | --- |
+| Minimum attainment and optimized concavity | `SchurEntropy.optimizedConcavity : OptimizedConcavityStatement` | [OptimizedBridge.lean](../SchurEntropy/OptimizedBridge.lean) |
+| Scalar joint convexity | `SchurEntropy.scalar_joint_convexity : ScalarConvexityStatement` | [ScalarConvexity.lean](../SchurEntropy/ScalarConvexity.lean) |
+| Schur-weighted block entropy inequality | `SchurEntropy.block_entropy_inequality : BlockEntropyStatement` | [Results.lean](../SchurEntropy/Results.lean) |
+
+[Definitions.lean](../SchurEntropy/Definitions.lean) specifies the exact three propositions. [Results.lean](../SchurEntropy/Results.lean) and [Audit.lean](../Audit.lean) explicitly check that the exported proofs have those types.
+
+The optimized lemma proves attainment of the literal `sInf`-defined value over all positive semidefinite block-diagonal noise matrices, as well as concavity on the whole PSD cone. The scalar lemma includes singular coefficient matrices and zero trace parameters. The block theorem covers arbitrary positive finite block dimensions and PSD `C`, `H`, and block-diagonal `W`; no trace normalization or unit-diagonal assumption on `C` is imposed.
+
+The channel-capacity applications and the two entropic criteria in the README have not yet been formalized in this repository. Their mathematical statements remain part of the manuscript overview.
+
+## Supporting results
 
 | Result | Source | Declaration |
 | --- | --- | --- |
-| Rank-one block entropy inequality, including singular noise and zero block traces | [RankOneInequality.lean](../SchurEntropy/RankOneInequality.lean) | `SchurEntropy.rankOne_block_entropy` |
-| Entropy increment is antitone in positive semidefinite noise | [EntropyIncrement.lean](../SchurEntropy/EntropyIncrement.lean) | `SchurEntropy.entropy_increment_antitone` |
-| Isometry invariance and cancellation of unused block dimensions | [RankOneEntropy.lean](../SchurEntropy/RankOneEntropy.lean) | `SchurEntropy.entropy_blockColumns_increment` |
-| Finite convex decomposition into rank-one matrices | [SpectralDecomposition.lean](../SchurEntropy/SpectralDecomposition.lean) | `SchurEntropy.exists_uniform_rankOne_decomposition` |
-| Full block theorem conditional only on the two analytic lemmas | [BlockTheorem.lean](../SchurEntropy/BlockTheorem.lean) | `SchurEntropy.blockEntropy_of_two_lemmas` |
-| Conditional finite-sum reduction for the general theorem | [BlockReduction.lean](../SchurEntropy/BlockReduction.lean) | `SchurEntropy.blockEntropy_of_analytic_inputs` |
-| Full matrix Hessian inequality used for scalar convexity | [ScalarHessian.lean](../SchurEntropy/ScalarHessian.lean) | `SchurEntropy.ScalarHessian.hessian_nonneg` |
-| Logarithmic-mean quadratic kernel used for scalar convexity | [ScalarKernel.lean](../SchurEntropy/ScalarKernel.lean) | `SchurEntropy.ScalarKernel.logarithmic_kernel_complex_nonneg` |
-| Stationary matrix comparison for arbitrary finite blocks | [MultiBlockComparison.lean](../SchurEntropy/MultiBlockComparison.lean) | `SchurEntropy.MultiBlock.km_of_stationarity` |
-| Eliminated matrix curvature under logarithmic stationarity | [MultiBlockHessian.lean](../SchurEntropy/MultiBlockHessian.lean) | `SchurEntropy.MultiBlock.eliminated_expression_nonpos` |
+| Rank-one inequality, including zero block traces and singular noise | [RankOneInequality.lean](../SchurEntropy/RankOneInequality.lean) | `rankOne_block_entropy` |
+| Entropy increment is antitone in PSD noise | [EntropyIncrement.lean](../SchurEntropy/EntropyIncrement.lean) | `entropy_increment_antitone` |
+| Isometry invariance and cancellation of unused block dimensions | [RankOneEntropy.lean](../SchurEntropy/RankOneEntropy.lean) | `entropy_blockColumns_increment` |
+| Finite convex rank-one decomposition | [SpectralDecomposition.lean](../SchurEntropy/SpectralDecomposition.lean) | `exists_uniform_rankOne_decomposition` |
+| Main theorem from the two analytic lemmas | [BlockTheorem.lean](../SchurEntropy/BlockTheorem.lean) | `blockEntropy_of_two_lemmas` |
+| Negative supporting multiplier | [SupportingMultiplier.lean](../SchurEntropy/SupportingMultiplier.lean) | `SupportingMultiplier.exists_negative_support` |
+| Extension from positive definite to semidefinite inputs | [BlockBoundary.lean](../SchurEntropy/BlockBoundary.lean) | `blockEntropy_of_posDef` |
+| Matrix Hessian estimate for scalar convexity | [ScalarHessian.lean](../SchurEntropy/ScalarHessian.lean) | `ScalarHessian.hessian_nonneg` |
+| Stationary matrix comparison for arbitrary finite blocks | [MultiBlockComparison.lean](../SchurEntropy/MultiBlockComparison.lean) | `MultiBlock.km_of_stationarity` |
+| Optimized value Hessian bound | [OptimizedHessian.lean](../SchurEntropy/OptimizedHessian.lean) | `Optimized.valueHessianRow_self_nonpos` |
 
-The conditional reduction exposes its remaining analytic hypotheses in its theorem type. The matrix comparison and scalar kernel are ingredients, not substitutes for the full analytic lemmas.
+The main theorem follows the manuscript's rank-one reduction, optimization, and finite convex-combination argument. The logarithms in the analytic matrix calculus are natural logarithms; the bridge modules prove the conversion to bits, including the multiplier rescaling by `log 2`.
 
-## Manuscript results still in progress
+## Reproduce the verification
 
-- Optimized concavity and minimum attainment: `OptimizedConcavityStatement`.
-- Joint convexity of the scalar deficit: `ScalarConvexityStatement`.
-- The unrestricted block entropy inequality: `BlockEntropyStatement`.
+The project pins:
 
-These names in [Definitions.lean](../SchurEntropy/Definitions.lean) define propositions. They do not assert proofs or register axioms. The channel-capacity applications and entropic criteria have not yet been formalized in this repository.
+- Lean `v4.34.0`.
+- Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
+- Auxiliary matrix-calculus library `qubitStrongAdditivity`, commit `90e61c463deb42067c109c46f048c6374dfc5945`.
 
-## Build and audit
+The root Mathlib pin overrides the auxiliary library's declared version. The imported dependency chain was compiled with this configuration, without modifying either dependency's source.
 
-The project pins Lean `v4.34.0`, Mathlib commit `5ed2965256430c3649e86755f9576b54eca72435`, and the auxiliary matrix-calculus library `qubitStrongAdditivity` at commit `90e61c463deb42067c109c46f048c6374dfc5945`. The root Mathlib pin overrides the auxiliary library's declared version; the imported dependency chain has been compiled with this configuration.
-
-With Lean's `elan` version manager installed, run:
+With Lean's `elan` version manager installed, run from the repository root:
 
 ```sh
 lake exe cache get
-lake build
-lake build Mathlib.Util.AssertNoSorry
-lake env lean Audit.lean
+./scripts/check.sh
 ```
 
-[Audit.lean](../Audit.lean) checks every imported declaration in the `SchurEntropy` namespace and rejects transitive axioms other than `propext`, `Classical.choice`, and `Quot.sound`. This includes rejection of `sorryAx`. It also prints the axioms of selected principal results. This audit checks proof dependencies; the result index above separately records whether the full manuscript statement has been proved.
+The [check script](../scripts/check.sh) runs the project build and [Audit.lean](../Audit.lean). The audit traverses every imported declaration in the `SchurEntropy` namespace and rejects any transitive axiom other than `propext`, `Classical.choice`, and `Quot.sound`. In particular, it rejects `sorryAx`. It also prints the transitive axioms and checks the exact types of all three completed manuscript results.
 
-See [third-party notices](../third_party/NOTICE) for the pinned dependency and adapted source excerpts.
+Source provenance and the licenses of adapted excerpts are recorded in [third_party/NOTICE](../third_party/NOTICE).

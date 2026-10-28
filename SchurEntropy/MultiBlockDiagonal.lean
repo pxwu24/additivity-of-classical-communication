@@ -1,3 +1,11 @@
+/-
+Adapted in part from KitaKen1/qubit-strong-additivity,
+lean/QubitAdditivity/BetaBlocks.lean,
+commit 90e61c463deb42067c109c46f048c6374dfc5945 (Apache-2.0).
+The functional-calculus homomorphism is generalized from two blocks to a
+finite dependent family. Additional positivity arguments are proved here.
+See `third_party/NOTICE` and `third_party/Apache-2.0.txt`.
+-/
 import SchurEntropy.BlockAlgebra
 import Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Pi
 import Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Basic

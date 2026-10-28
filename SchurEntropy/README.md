@@ -1,9 +1,23 @@
 # Lean source organization
 
-[Definitions.lean](Definitions.lean) defines spectral entropy in bits, block pinching, Schur multiplication, scalar skeletons, and the three exact manuscript propositions.
+The three completed manuscript results are exported by [Results.lean](Results.lean):
 
-The checked modules are collected by [SchurEntropy.lean](../SchurEntropy.lean). The complete rank-one proof is [RankOneInequality.lean](RankOneInequality.lean); its supporting modules handle isometries, zero block traces, orthogonal entropy addition, and monotonicity of entropy increments. [BlockReduction.lean](BlockReduction.lean) proves the finite-sum reduction with its outstanding analytic hypotheses explicit.
+- `optimizedConcavity`: minimum attainment and concavity of the optimized deficit.
+- `scalar_joint_convexity`: joint convexity of the scalar deficit.
+- `block_entropy_inequality`: the Schur-weighted block entropy inequality.
 
-`MultiBlock*.lean` develops the arbitrary-block matrix comparison needed for optimized concavity. [ScalarKernel.lean](ScalarKernel.lean) proves the logarithmic-mean sum-of-squares certificate needed for scalar joint convexity.
+[Definitions.lean](Definitions.lean) defines unnormalized spectral entropy in bits and the exact theorem statements. [SchurEntropy.lean](../SchurEntropy.lean) collects the proof library.
 
-See the [verification index](../docs/verification.md) for exact checked declarations, remaining obligations, build instructions, and the axiom audit. The channel-capacity and entropic-criterion modules remain future work.
+The source is organized into these groups:
+
+| Modules | Purpose |
+| --- | --- |
+| `Isometry`, `RankOne*`, `EntropyIncrement`, `BlockTraceBound` | Complete rank-one proof, including zero block traces and singular noise |
+| `Reduction`, `SpectralDecomposition`, `BlockReduction` | Finite convex decomposition and Jensen argument |
+| `SupportingMultiplier`, `BlockBoundary`, `BlockTheorem` | Supporting functional, semidefinite boundary, and assembly of the main theorem |
+| `ScalarKernel`, `ScalarHessian`, `ScalarConvexity*` | Spectral entropy calculus, Hessian estimate, and scalar joint convexity |
+| `BlockAlgebra`, `MultiBlock*` | Matrix comparison and curvature estimates for arbitrary finite block families |
+| `Optimized*` | Attainment, interior minimizers, implicit differentiation, concavity, boundary extension, and conversion to bits |
+| `EntropyScaling`, `EntropyContinuity` | General unnormalized entropy identities and continuity |
+
+See the [verification index](../docs/verification.md) for source links, exact declarations, reproducible build instructions, and axiom checks. The channel-capacity applications and entropic criteria remain future formalization work.

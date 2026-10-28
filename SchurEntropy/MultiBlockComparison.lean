@@ -2,6 +2,7 @@
 Adapted for arbitrary finite block families from BetaBridge.lean, BetaEndpoints.lean, and BetaPWBound.lean
 in KitaKen1/qubit-strong-additivity, commit 90e61c463deb42067c109c46f048c6374dfc5945.
 The upstream source is distributed under the Apache License, Version 2.0.
+See `third_party/NOTICE` and `third_party/Apache-2.0.txt`.
 -/
 import SchurEntropy.MultiBlockOperators
 import QubitAdditivity.BetaBarrier

@@ -15,7 +15,46 @@ This excerpt is also licensed under Apache-2.0. Modifications narrow imports
 and restate the result for matrix entropy in bits; the isometry-increment and
 block-column cancellation proofs are added in this repository.
 
-Relevant upstream notice:
+Further adapted source from the same upstream project and commit:
+
+  Local file                               Upstream QubitAdditivity source
+  SchurEntropy/BlockAlgebra.lean            BetaOperators.lean
+  SchurEntropy/MultiBlockDiagonal.lean      BetaBlocks.lean
+  SchurEntropy/MultiBlockOperators.lean     BetaBridge.lean, BetaBlocks.lean,
+                                           BetaStrict.lean
+  SchurEntropy/MultiBlockComparison.lean    BetaBridge.lean, BetaEndpoints.lean,
+                                           BetaPWBound.lean
+  SchurEntropy/MultiBlockCoordinates.lean   BetaValueHessian.lean
+  SchurEntropy/MultiBlockHessian.lean       BetaKM.lean, BetaHessian.lean
+  SchurEntropy/OptimizedDefinitions.lean    BetaDual.lean
+  SchurEntropy/OptimizedExistence.lean      BetaDualExistence.lean
+  SchurEntropy/OptimizedInterior.lean       BetaDualInterior.lean
+  SchurEntropy/OptimizedConvex.lean         BetaDualConvex.lean
+  SchurEntropy/OptimizedDerivative.lean     BetaDualDerivative.lean
+  SchurEntropy/OptimizedMinimizer.lean      BetaMinimizer.lean
+  SchurEntropy/OptimizedValue.lean          BetaDualValue.lean
+  SchurEntropy/OptimizedHessian.lean        BetaValueHessian.lean
+  SchurEntropy/OptimizedConcave.lean        BetaDualConcave.lean
+  SchurEntropy/OptimizedPSDExistence.lean   BetaDualBoundary.lean
+  SchurEntropy/OptimizedBoundary.lean       BetaDualBoundary.lean
+  SchurEntropy/StrictLogOrder.lean          BetaLogOrder.lean
+
+Upstream paths above are relative to lean/QubitAdditivity/ in
+https://github.com/KitaKen1/qubit-strong-additivity at commit
+90e61c463deb42067c109c46f048c6374dfc5945.
+These adapted excerpts are licensed under Apache-2.0; the license text is
+included in Apache-2.0.txt alongside this notice.
+
+The block-operator and optimized-value adaptations replace the upstream
+two-block decomposition by arbitrary finite dependent block families. They
+also revise imports and namespaces and add the matrix/spectral-entropy
+interfaces needed here. OptimizedBridgeBase.lean and OptimizedBridge.lean
+provide the conversion to entropy in bits and the literal sInf definition.
+StrictLogOrder.lean narrows imports and changes the namespace; its cited
+mathematical proofs are unchanged.
+
+Relevant upstream notice, reproduced below (paths refer to the upstream
+project):
 Strong Holevo Additivity for Qubit Channels
 Lean formalization and publication packaging, 2026.
 

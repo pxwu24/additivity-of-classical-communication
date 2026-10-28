@@ -18,7 +18,10 @@ run_cmd do
       count := count + 1
   logInfo m!"Audited {count} SchurEntropy declarations: only standard foundational axioms."
 
-#print axioms SchurEntropy.rankOne_block_entropy
-#print axioms SchurEntropy.blockEntropy_of_two_lemmas
-#print axioms SchurEntropy.blockEntropy_of_analytic_inputs
-#print axioms SchurEntropy.ScalarKernel.logarithmic_kernel_complex_nonneg
+#print axioms SchurEntropy.optimizedConcavity
+#print axioms SchurEntropy.scalar_joint_convexity
+#print axioms SchurEntropy.block_entropy_inequality
+
+example : SchurEntropy.OptimizedConcavityStatement := SchurEntropy.optimizedConcavity
+example : SchurEntropy.ScalarConvexityStatement := SchurEntropy.scalar_joint_convexity
+example : SchurEntropy.BlockEntropyStatement := SchurEntropy.block_entropy_inequality

@@ -1,3 +1,11 @@
+/-
+Adapted in part from KitaKen1/qubit-strong-additivity,
+lean/QubitAdditivity/BetaOperators.lean,
+commit 90e61c463deb42067c109c46f048c6374dfc5945 (Apache-2.0).
+The coordinate-inclusion and generator/compression arguments are adapted;
+the declarations are specialized and reorganized for this block-entropy proof.
+See `third_party/NOTICE` and `third_party/Apache-2.0.txt`.
+-/
 import SchurEntropy.Definitions
 import Mathlib.LinearAlgebra.Matrix.Block
 import Mathlib.LinearAlgebra.Matrix.Kronecker

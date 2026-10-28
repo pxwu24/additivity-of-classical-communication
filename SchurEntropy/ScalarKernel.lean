@@ -6,8 +6,9 @@ import Mathlib.Tactic
 # The scalar kernel in the joint-convexity Hessian
 
 This file proves the scalar logarithmic-mean bound and the positive-semidefinite
-2-by-2 coefficient certificate used by the analytic Hessian calculation. It does
-not assert that the matrix-valued entropy Hessian calculation has been formalized.
+2-by-2 coefficient certificate used by `ScalarHessian`. The full matrix
+calculation and joint convexity theorem are proved in `ScalarHessian` and
+`ScalarConvexity`.
 -/
 
 noncomputable section
@@ -141,6 +142,5 @@ theorem logarithmic_kernel_complex_nonneg {a b : ℝ}
   rw [hid]
   exact add_nonneg hre him
 
-#print axioms logarithmic_kernel_complex_nonneg
 
 end SchurEntropy.ScalarKernel

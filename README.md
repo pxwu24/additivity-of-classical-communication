@@ -2,7 +2,7 @@
 
 This repository is the planned Lean companion to the forthcoming paper of the same title. It organizes the formalization of a Schur-weighted block entropy inequality, the entropic criteria connecting it to channel capacity, and the resulting strong-additivity statements for phase-covariant and qubit-output channels.
 
-**Current status:** active Lean formalization. The complete rank-one block entropy inequality and supporting matrix, entropy, and finite-sum results have been checked. The full block entropy theorem and its two analytic lemmas remain in progress. See the [verification status](docs/verification.md), [source organization](SchurEntropy/README.md), and [axiom audit](Audit.lean).
+**Current status:** the optimized concavity lemma (including minimum attainment), the scalar joint-convexity lemma, and the Schur-weighted block entropy inequality are fully proved in Lean. The proofs cover positive semidefinite inputs and zero trace parameters. The channel-capacity applications and entropic criteria remain future formalization work. See the [verification index](docs/verification.md) and [axiom audit](Audit.lean).
 
 ## Contents
 
@@ -307,9 +307,20 @@ is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses o
 
 ## Formalization index
 
-The [verification index](docs/verification.md) distinguishes completed Lean results from the remaining manuscript statements. The complete rank-one case is proved in [RankOneInequality.lean](SchurEntropy/RankOneInequality.lean). The general finite-sum argument is formalized in [BlockReduction.lean](SchurEntropy/BlockReduction.lean), with its remaining analytic inputs explicit.
+| Completed result | Lean declaration | Proof |
+| --- | --- | --- |
+| Optimized concavity and attainment | `SchurEntropy.optimizedConcavity` | [OptimizedBridge.lean](SchurEntropy/OptimizedBridge.lean) |
+| Scalar joint convexity | `SchurEntropy.scalar_joint_convexity` | [ScalarConvexity.lean](SchurEntropy/ScalarConvexity.lean) |
+| Schur-weighted block entropy inequality | `SchurEntropy.block_entropy_inequality` | [Results.lean](SchurEntropy/Results.lean) |
 
-The optimized concavity lemma, scalar joint convexity lemma, and full block entropy inequality are still in progress. The entropic criteria and channel applications remain future formalization work. Build and axiom-audit instructions are in the [verification index](docs/verification.md).
+The [verification index](docs/verification.md) records the exact scope, supporting results, pinned dependencies, and audit procedure. To reproduce the checks with Lean's `elan` version manager installed:
+
+```sh
+lake exe cache get
+./scripts/check.sh
+```
+
+The entropic criteria and channel-capacity applications stated above are not yet formalized here.
 
 ## References
 

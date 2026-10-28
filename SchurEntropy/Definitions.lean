@@ -4,11 +4,13 @@ import Mathlib.Analysis.SpecialFunctions.Log.NegMulLog
 import Mathlib.LinearAlgebra.Matrix.Trace
 
 /-!
-# Matrix entropy and the statements to be formalized
+# Matrix entropy and the main statement interfaces
 
 The entropy below is the spectral entropy of an actual complex matrix, in bits.
-The three final `...Statement` declarations are propositions specifying the
-analytic goals. They are not axioms and are not asserted as theorems.
+The three final `...Statement` declarations are proposition-valued interfaces
+for the two analytic lemmas and the block entropy theorem. Their proofs are
+provided by `optimizedConcavity`, `scalar_joint_convexity`, and
+`block_entropy_inequality` in the corresponding result modules.
 -/
 
 noncomputable section
@@ -209,8 +211,8 @@ theorem dualCost_eq {m : ℕ} (n : Fin m → ℕ) (μ : Fin m → ℝ)
     dualCost n μ J W = deficit n J W - dot μ (blockTrace n W) := by
   rw [dualCost, trace_blockMultiplier_mul]
 
-/-- Exact analytic scope of attainment and optimized concavity. This proposition
-is a statement of the remaining goal, not an assumption registered as an axiom. -/
+/-- Statement interface for attainment and optimized concavity, proved by
+`optimizedConcavity` in `OptimizedBridge`. -/
 def OptimizedConcavityStatement : Prop :=
   ∀ (m : ℕ) (n : Fin m → ℕ) (μ : Fin m → ℝ),
     0 < m → (∀ i, 0 < n i) → (∀ i, μ i < 0) →
@@ -220,14 +222,16 @@ def OptimizedConcavityStatement : Prop :=
           ∀ Z ∈ admissibleNoise n, dualCost n μ J W ≤ dualCost n μ J Z) ∧
       ConcaveOn ℝ {J : BlockMatrix n | J.PosSemidef} (optimizedDeficit n μ)
 
-/-- Exact analytic scope of the scalar joint convexity lemma. -/
+/-- Statement interface for scalar joint convexity, proved by
+`scalar_joint_convexity` in `ScalarConvexity`. -/
 def ScalarConvexityStatement : Prop :=
   ∀ (m : ℕ) (C : Matrix (Fin m) (Fin m) ℂ), 0 < m → C.PosSemidef →
     ConvexOn ℝ {p : (Fin m → ℝ) × (Fin m → ℝ) |
       (∀ i, 0 ≤ p.1 i) ∧ (∀ i, 0 ≤ p.2 i)}
       (fun p => scalarFunction C p.1 p.2)
 
-/-- Exact analytic scope of the Schur-weighted block entropy inequality. -/
+/-- Statement interface for the Schur-weighted block entropy inequality,
+proved by `block_entropy_inequality` in `Results`. -/
 def BlockEntropyStatement : Prop :=
   ∀ (m : ℕ) (n : Fin m → ℕ)
     (C : Matrix (Fin m) (Fin m) ℂ) (H W : BlockMatrix n),
