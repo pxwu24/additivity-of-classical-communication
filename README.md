@@ -17,97 +17,97 @@ This repository is the planned Lean companion to the forthcoming paper of the sa
 
 ## Capacity problem and notation
 
-All Hilbert spaces are finite dimensional, and a quantum channel is a completely positive, trace-preserving linear map. We write $\mathbb M_d$ for the complex $d\times d$ matrices and use logarithms to base two throughout.
+All Hilbert spaces are finite dimensional, and a quantum channel is a completely positive, trace-preserving linear map. We write $`\mathbb{M}_d`$ for the complex $`d\times d`$ matrices and use logarithms to base two throughout.
 
-For a channel $\Phi$, the optimal rate achievable with product-state codewords and collective decoding is its Holevo information:
+For a channel $`\Phi`$, the optimal rate achievable with product-state codewords and collective decoding is its Holevo information:
 
-$$
+```math
 \chi_{\max}(\Phi)
 =\max_{\{p_x,\rho_x\}}
 \left[
-S\!\left(\Phi(\bar\rho)\right)
--\sum_x p_x S\!\left(\Phi(\rho_x)\right)
+S\left(\Phi(\bar\rho)\right)
+-\sum_x p_x S\left(\Phi(\rho_x)\right)
 \right],
 \qquad
 \bar\rho=\sum_xp_x\rho_x.
-$$
+```
 
-The maximum runs over finite ensembles of input states. For a state $\rho$, its von Neumann entropy is
+The maximum runs over finite ensembles of input states. For a state $`\rho`$, its von Neumann entropy is
 
-$$
-S(\rho)=-\operatorname{Tr}(\rho\log_2\rho).
-$$
+```math
+S(\rho)=-\mathrm{Tr}(\rho\log_2\rho).
+```
 
 Allowing entangled codewords gives the classical capacity through regularization:
 
-$$
-\mathcal C(\Phi)
+```math
+\mathcal{C}(\Phi)
 =\lim_{n\to\infty}\frac{1}{n}
-\chi_{\max}\!\left(\Phi^{\otimes n}\right).
-$$
+\chi_{\max}\left(\Phi^{\otimes n}\right).
+```
 
-See [Holevo](#references) and [Schumacher–Westmoreland](#references) for the coding theorems. A channel $\mathcal A$ has **strongly additive Holevo information** if
+See [Holevo](#references) and [Schumacher–Westmoreland](#references) for the coding theorems. A channel $`\mathcal{A}`$ has **strongly additive Holevo information** if
 
-$$
-\chi_{\max}(\mathcal A\otimes\mathcal M)
-=\chi_{\max}(\mathcal A)+\chi_{\max}(\mathcal M)
-$$
+```math
+\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
+=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M})
+```
 
-for every finite-dimensional channel $\mathcal M$. In particular, strong additivity implies $\mathcal C(\mathcal A)=\chi_{\max}(\mathcal A)$.
+for every finite-dimensional channel $`\mathcal{M}`$. In particular, strong additivity implies $`\mathcal{C}(\mathcal{A})=\chi_{\max}(\mathcal{A})`$.
 
 ## Main results
 
 ### 1. Phase-covariant channels
 
-Fix an orthonormal basis of $\mathbb C^d$. Here **phase covariance** means covariance under every diagonal unitary in this basis:
+Fix an orthonormal basis of $`\mathbb{C}^d`$. Here **phase covariance** means covariance under every diagonal unitary in this basis:
 
-$$
-\mathcal A(U_{\boldsymbol\theta}\rho U_{\boldsymbol\theta}^{\dagger})
-=U_{\boldsymbol\theta}\mathcal A(\rho)U_{\boldsymbol\theta}^{\dagger},
+```math
+\mathcal{A}(U_{\boldsymbol{\theta}}\rho U_{\boldsymbol{\theta}}^{\dagger})
+=U_{\boldsymbol{\theta}}\mathcal{A}(\rho)U_{\boldsymbol{\theta}}^{\dagger},
 \qquad
-U_{\boldsymbol\theta}
-=\operatorname{diag}(e^{i\theta_1},\ldots,e^{i\theta_d}),
+U_{\boldsymbol{\theta}}
+=\mathrm{diag}(e^{i\theta_1},\ldots,e^{i\theta_d}),
 \qquad
-\boldsymbol\theta\in\mathbb R^d.
-$$
+\boldsymbol{\theta}\in\mathbb{R}^d.
+```
 
 The phases vary independently; covariance under a single Hamiltonian's time evolution is a different, generally weaker condition. The examples considered in the manuscript include phase-covariant multilevel amplitude-damping channels, generalized amplitude-damping channels, and damping–dephasing channels.
 
-**Theorem 1 (strong additivity for phase-covariant channels).** Let $d\ge2$, and let $\mathcal A:\mathbb M_d\to\mathbb M_d$ be phase covariant in the sense above. For every finite-dimensional channel $\mathcal M$,
+**Theorem 1 (strong additivity for phase-covariant channels).** Let $`d\ge2`$, and let $`\mathcal{A}:\mathbb{M}_d\to\mathbb{M}_d`$ be phase covariant in the sense above. For every finite-dimensional channel $`\mathcal{M}`$,
 
-$$
-\chi_{\max}(\mathcal A\otimes\mathcal M)
-=\chi_{\max}(\mathcal A)+\chi_{\max}(\mathcal M).
-$$
+```math
+\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
+=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
+```
 
 ### 2. Qubit-output channels
 
-**Theorem 2 (strong additivity for a class of qubit-output channels).** Let $\mathcal A:\mathbb M_d\to\mathbb M_2$. Suppose there exist an orthonormal basis $\{|0\rangle,|1\rangle\}$ of $\mathbb C^2$, positive semidefinite operators $E_0,E_1\in\mathbb M_d$, and possibly zero, unnormalized vectors $|a_0\rangle,|a_1\rangle\in\mathbb C^d$ such that
+**Theorem 2 (strong additivity for a class of qubit-output channels).** Let $`\mathcal{A}:\mathbb{M}_d\to\mathbb{M}_2`$. Suppose there exist an orthonormal basis $`\{|0\rangle,|1\rangle\}`$ of $`\mathbb{C}^2`$, positive semidefinite operators $`E_0,E_1\in\mathbb{M}_d`$, and possibly zero, unnormalized vectors $`|a_0\rangle,|a_1\rangle\in\mathbb{C}^d`$ such that
 
-$$
-\mathcal A(\rho)
+```math
+\mathcal{A}(\rho)
 =K\rho K^{\dagger}
-+\sum_{i=0}^{1}\operatorname{Tr}(E_i\rho)|i\rangle\langle i|,
++\sum_{i=0}^{1}\mathrm{Tr}(E_i\rho)|i\rangle\langle i|,
 \qquad
 K=|0\rangle\langle a_0|+|1\rangle\langle a_1|,
-$$
+```
 
 and
 
-$$
+```math
 |a_0\rangle\langle a_0|
 +|a_1\rangle\langle a_1|
 +E_0+E_1=I_d.
-$$
+```
 
-Then, for every finite-dimensional channel $\mathcal M:A'\to B'$,
+Then, for every finite-dimensional channel $`\mathcal{M}:A'\to B'`$,
 
-$$
-\chi_{\max}(\mathcal A\otimes\mathcal M)
-=\chi_{\max}(\mathcal A)+\chi_{\max}(\mathcal M).
-$$
+```math
+\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
+=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
+```
 
-In particular, every qubit-to-qubit channel $\mathcal A:\mathbb M_2\to\mathbb M_2$ satisfies strong additivity.
+In particular, every qubit-to-qubit channel $`\mathcal{A}:\mathbb{M}_2\to\mathbb{M}_2`$ satisfies strong additivity.
 
 ## Entropic criteria for additivity
 
@@ -117,70 +117,70 @@ The channel applications use a lower bound on the output entropy of a bipartite 
 
 The following sufficient condition is the pure-state ensemble formulation of convex-roof entropy superadditivity in [Holevo–Shirokov, Theorem 1(iv)](https://arxiv.org/abs/quant-ph/0306196), which relates that property to additivity under arbitrary input constraints.
 
-**Lemma (standard entropic criterion).** Let $\mathcal A:A\to B$ and $\mathcal M:A'\to B'$ be channels. Suppose that, for every bipartite pure state $\psi=|\psi\rangle\langle\psi|$ on $AA'$, with reduced states $\rho_A$ and $\rho_{A'}$, there exist finite ensembles of states $\{p_\ell,\eta_\ell\}$ on $A$ and $\{q_k,\tau_k\}$ on $A'$ such that
+**Lemma (standard entropic criterion).** Let $`\mathcal{A}:A\to B`$ and $`\mathcal{M}:A'\to B'`$ be channels. Suppose that, for every bipartite pure state $`\psi=|\psi\rangle\langle\psi|`$ on $`AA'`$, with reduced states $`\rho_A`$ and $`\rho_{A'}`$, there exist finite ensembles of states $`\{p_\ell,\eta_\ell\}`$ on $`A`$ and $`\{q_k,\tau_k\}`$ on $`A'`$ such that
 
-$$
+```math
 \rho_A=\sum_\ell p_\ell\eta_\ell,
 \qquad
 \rho_{A'}=\sum_k q_k\tau_k,
-$$
+```
 
 and
 
-$$
-S\!\left((\mathcal A\otimes\mathcal M)(\psi)\right)
+```math
+S\left((\mathcal{A}\otimes\mathcal{M})(\psi)\right)
 \ge
-\sum_\ell p_\ell S\!\left(\mathcal A(\eta_\ell)\right)
-+\sum_k q_k S\!\left(\mathcal M(\tau_k)\right).
-$$
+\sum_\ell p_\ell S\left(\mathcal{A}(\eta_\ell)\right)
++\sum_k q_k S\left(\mathcal{M}(\tau_k)\right).
+```
 
 Then
 
-$$
-\chi_{\max}(\mathcal A\otimes\mathcal M)
-=\chi_{\max}(\mathcal A)+\chi_{\max}(\mathcal M).
-$$
+```math
+\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
+=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
+```
 
 ### Weaker criterion: preserve one output-center expectation
 
-For any ensemble $\{p_\ell,\eta_\ell\}$ attaining $\chi_{\max}(\mathcal A)$, the average output
+For any ensemble $`\{p_\ell,\eta_\ell\}`$ attaining $`\chi_{\max}(\mathcal{A})`$, the average output
 
-$$
-\sigma_{\mathcal A}
-:=\sum_\ell p_\ell\mathcal A(\eta_\ell)
-$$
+```math
+\sigma_{\mathcal{A}}
+:=\sum_\ell p_\ell\mathcal{A}(\eta_\ell)
+```
 
-is independent of the chosen optimal ensemble. We call $\sigma_{\mathcal A}$ the **optimal output center**. Uniqueness follows from [Holevo–Shirokov, Corollary 1](https://arxiv.org/abs/quant-ph/0306196); see also [Schumacher–Westmoreland, “Optimal signal ensembles”](https://arxiv.org/abs/quant-ph/9912122) for the relative-entropy characterization of optimal ensembles.
+is independent of the chosen optimal ensemble. We call $`\sigma_{\mathcal{A}}`$ the **optimal output center**. Uniqueness follows from [Holevo–Shirokov, Corollary 1](https://arxiv.org/abs/quant-ph/0306196); see also [Schumacher–Westmoreland, “Optimal signal ensembles”](https://arxiv.org/abs/quant-ph/9912122) for the relative-entropy characterization of optimal ensembles.
 
-If $\sigma_{\mathcal A}$ is singular, $\log_2\sigma_{\mathcal A}$ is interpreted on its support. Every output of $\mathcal A$ is supported there, so the trace pairings below are well defined.
+If $`\sigma_{\mathcal{A}}`$ is singular, $`\log_2\sigma_{\mathcal{A}}`$ is interpreted on its support. Every output of $`\mathcal{A}`$ is supported there, so the trace pairings below are well defined.
 
-**Proposition (weaker entropic criterion).** Let $\mathcal A:A\to B$ and $\mathcal M:A'\to B'$ be channels. Suppose that, for every bipartite pure state $\psi$ on $AA'$, with reduced states $\rho_A$ and $\rho_{A'}$, there exist finite ensembles of states $\{p_\ell,\eta_\ell\}$ on $A$ and $\{q_k,\tau_k\}$ on $A'$ such that
+**Proposition (weaker entropic criterion).** Let $`\mathcal{A}:A\to B`$ and $`\mathcal{M}:A'\to B'`$ be channels. Suppose that, for every bipartite pure state $`\psi`$ on $`AA'`$, with reduced states $`\rho_A`$ and $`\rho_{A'}`$, there exist finite ensembles of states $`\{p_\ell,\eta_\ell\}`$ on $`A`$ and $`\{q_k,\tau_k\}`$ on $`A'`$ such that
 
-$$
+```math
 \sum_\ell p_\ell
-\operatorname{Tr}\!\left(\mathcal A(\eta_\ell)\log_2\sigma_{\mathcal A}\right)
-=\operatorname{Tr}\!\left(\mathcal A(\rho_A)\log_2\sigma_{\mathcal A}\right),
+\mathrm{Tr}\left(\mathcal{A}(\eta_\ell)\log_2\sigma_{\mathcal{A}}\right)
+=\mathrm{Tr}\left(\mathcal{A}(\rho_A)\log_2\sigma_{\mathcal{A}}\right),
 \qquad
 \rho_{A'}=\sum_kq_k\tau_k,
-$$
+```
 
 and
 
-$$
-S\!\left((\mathcal A\otimes\mathcal M)(\psi)\right)
+```math
+S\left((\mathcal{A}\otimes\mathcal{M})(\psi)\right)
 \ge
-\sum_\ell p_\ell S\!\left(\mathcal A(\eta_\ell)\right)
-+\sum_k q_k S\!\left(\mathcal M(\tau_k)\right).
-$$
+\sum_\ell p_\ell S\left(\mathcal{A}(\eta_\ell)\right)
++\sum_k q_k S\left(\mathcal{M}(\tau_k)\right).
+```
 
 Then
 
-$$
-\chi_{\max}(\mathcal A\otimes\mathcal M)
-=\chi_{\max}(\mathcal A)+\chi_{\max}(\mathcal M).
-$$
+```math
+\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
+=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
+```
 
-The standard compatibility condition implies the weaker one by linearity. The weaker condition fixes only the expectation of $\log_2\sigma_{\mathcal A}$ at the output of the first channel, while still preserving the second reduced input state. This relaxation is used in the manuscript's treatment of higher-dimensional phase-covariant channels.
+The standard compatibility condition implies the weaker one by linearity. The weaker condition fixes only the expectation of $`\log_2\sigma_{\mathcal{A}}`$ at the output of the first channel, while still preserving the second reduced input state. This relaxation is used in the manuscript's treatment of higher-dimensional phase-covariant channels.
 
 ## Schur-weighted block entropy inequality
 
@@ -188,78 +188,78 @@ The central matrix inequality compares an entropy deficit for a block matrix wit
 
 ### Block notation and entropy deficit
 
-Fix $m\ge1$ and block sizes $n_1,\ldots,n_m\ge1$. Let
+Fix $`m\ge1`$ and block sizes $`n_1,\ldots,n_m\ge1`$. Let
 
-$$
-\mathcal H=\bigoplus_{i=1}^{m}\mathbb C^{n_i},
+```math
+\mathcal{H}=\bigoplus_{i=1}^{m}\mathbb{C}^{n_i},
 \qquad
-C=(c_{ij})\in\mathbb M_m,
+C=(c_{ij})\in\mathbb{M}_m,
 \qquad
-H=(H_{ij})_{i,j=1}^{m}\in\mathcal B(\mathcal H).
-$$
+H=(H_{ij})_{i,j=1}^{m}\in\mathcal{B}(\mathcal{H}).
+```
 
 The **block Schur product** is
 
-$$
+```math
 C\odot H=(c_{ij}H_{ij})_{i,j=1}^{m}.
-$$
+```
 
-Let $\mathcal P$ denote pinching onto the diagonal blocks:
+Let $`\mathcal{P}`$ denote pinching onto the diagonal blocks:
 
-$$
-\mathcal P(J)=\bigoplus_{i=1}^{m}J_{ii}.
-$$
+```math
+\mathcal{P}(J)=\bigoplus_{i=1}^{m}J_{ii}.
+```
 
-When every $n_i=1$, this is ordinary diagonal pinching. For the matrix inequalities, entropy is extended to all positive semidefinite operators, without trace normalization:
+When every $`n_i=1`$, this is ordinary diagonal pinching. For the matrix inequalities, entropy is extended to all positive semidefinite operators, without trace normalization:
 
-$$
-S(X)=-\operatorname{Tr}(X\log_2X),
+```math
+S(X)=-\mathrm{Tr}(X\log_2X),
 \qquad X\ge0,
 \qquad 0\log_2 0:=0.
-$$
+```
 
-For $J\ge0$ and block-diagonal $W\ge0$ on the same space, define
+For $`J\ge0`$ and block-diagonal $`W\ge0`$ on the same space, define
 
-$$
+```math
 \Delta(J,W)
-:=S(J+W)-S\!\left(\mathcal P(J)\right)-S(W).
-$$
+:=S(J+W)-S\left(\mathcal{P}(J)\right)-S(W).
+```
 
 ### Main matrix inequality
 
-**Theorem (Schur-weighted block entropy inequality).** Suppose $C\ge0$, $H\ge0$, and
+**Theorem (Schur-weighted block entropy inequality).** Suppose $`C\ge0`$, $`H\ge0`$, and
 
-$$
+```math
 W=\bigoplus_{i=1}^{m}W_i,
 \qquad W_i\ge0.
-$$
+```
 
 Set
 
-$$
-r_i=\operatorname{Tr}H_{ii},
+```math
+r_i=\mathrm{Tr}H_{ii},
 \qquad
-y_i=\operatorname{Tr}W_i,
+y_i=\mathrm{Tr}W_i,
 \qquad
-D_{\boldsymbol r}=\operatorname{diag}(r_1,\ldots,r_m),
+D_{\boldsymbol{r}}=\mathrm{diag}(r_1,\ldots,r_m),
 \qquad
-D_{\boldsymbol y}=\operatorname{diag}(y_1,\ldots,y_m).
-$$
+D_{\boldsymbol{y}}=\mathrm{diag}(y_1,\ldots,y_m).
+```
 
 Then
 
-$$
+```math
 \boxed{
 \Delta(C\odot H,W)
 \ge
-\Delta\!\left(
-D_{\boldsymbol r}^{1/2}CD_{\boldsymbol r}^{1/2},
-D_{\boldsymbol y}
+\Delta\left(
+D_{\boldsymbol{r}}^{1/2}CD_{\boldsymbol{r}}^{1/2},
+D_{\boldsymbol{y}}
 \right).
 }
-$$
+```
 
-The deficit on the left uses pinching into the original blocks $\mathbb C^{n_i}$. The deficit on the right is evaluated on $\mathbb C^m$ and uses ordinary diagonal pinching.
+The deficit on the left uses pinching into the original blocks $`\mathbb{C}^{n_i}`$. The deficit on the right is evaluated on $`\mathbb{C}^m`$ and uses ordinary diagonal pinching.
 
 ## Technical ingredients
 
@@ -269,41 +269,41 @@ The proof of the block inequality uses two complementary properties of the entro
 
 **Lemma (optimized concavity).** Suppose
 
-$$
+```math
 \Lambda=\bigoplus_{i=1}^{m}\mu_iI_{n_i},
 \qquad \mu_i<0.
-$$
+```
 
-For $J\ge0$ on $\mathcal H$, define
+For $`J\ge0`$ on $`\mathcal{H}`$, define
 
-$$
+```math
 G_\Lambda(J,W)
-:=\Delta(J,W)-\operatorname{Tr}(\Lambda W),
-$$
+:=\Delta(J,W)-\mathrm{Tr}(\Lambda W),
+```
 
 and
 
-$$
+```math
 \widehat G_\Lambda(J)
 :=\min_{\substack{W\ge0\\ W\text{ block diagonal}}}
 G_\Lambda(J,W).
-$$
+```
 
-The minimum is attained, and the map $J\mapsto\widehat G_\Lambda(J)$ is concave on the positive semidefinite cone.
+The minimum is attained, and the map $`J\mapsto\widehat G_\Lambda(J)`$ is concave on the positive semidefinite cone.
 
 ### Joint convexity of the scalar expression
 
-**Lemma (scalar joint convexity).** For every $C\ge0$ in $\mathbb M_m$, the function
+**Lemma (scalar joint convexity).** For every $`C\ge0`$ in $`\mathbb{M}_m`$, the function
 
-$$
-f_C(\boldsymbol r,\boldsymbol y)
-:=\Delta\!\left(
-D_{\boldsymbol r}^{1/2}CD_{\boldsymbol r}^{1/2},
-D_{\boldsymbol y}
+```math
+f_C(\boldsymbol{r},\boldsymbol{y})
+:=\Delta\left(
+D_{\boldsymbol{r}}^{1/2}CD_{\boldsymbol{r}}^{1/2},
+D_{\boldsymbol{y}}
 \right)
-$$
+```
 
-is jointly convex on $[0,\infty)^m\times[0,\infty)^m$. Here the deficit uses ordinary diagonal pinching.
+is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses ordinary diagonal pinching.
 
 ## Formalization index
 
