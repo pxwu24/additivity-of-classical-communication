@@ -1,6 +1,6 @@
 # Additivity of classical communication
 
-This project focuses on studying when entangling codewords across independent uses of a quantum channel **cannot** increase the rate of classical communication. It accompanies the paper titled **“Classical communication over quantum channels: does entanglement help in nature?”**, see the manuscript here.
+This project (**human written, AI-assisted**) focuses on studying when entangling codewords across independent uses of a quantum channel **cannot** increase the rate of classical communication. It accompanies the paper titled **“Classical communication over quantum channels: does entanglement help in nature?”**, see the manuscript here.
 
 A central open problem in this direction is to find an integer $`N\ge2`$ such that
 
