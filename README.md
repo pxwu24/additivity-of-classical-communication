@@ -31,7 +31,7 @@ The common tool is the **Schur-weighted block entropy inequality** (Theorem 3.1)
 ## Repository guide
 
 - [Lean/](Lean/) contains the verified Lean project, its build configuration, dependency licenses, and [verification record](Lean/verification.md).
-- [Proofs/](Proofs/) contains mathematical proofs organized by the numbered results in the updated manuscript.
+- [Proofs/](Proofs/) contains mathematical proofs organized by the numbered results in the manuscript.
 
 ## Contents
 
