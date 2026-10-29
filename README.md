@@ -418,8 +418,10 @@ The project builds on Kitamura’s matrix and channel-entropy library, pinned at
 3. A. S. Holevo and M. E. Shirokov, **“On Shor's channel extension and constrained channels.”** *Communications in Mathematical Physics* **249**, 417–430 (2004). [arXiv:quant-ph/0306196](https://arxiv.org/abs/quant-ph/0306196).
 4. B. Schumacher and M. D. Westmoreland, **“Optimal signal ensembles.”** *Physical Review A* **63**, 022308 (2001). [arXiv:quant-ph/9912122](https://arxiv.org/abs/quant-ph/9912122). [DOI:10.1103/PhysRevA.63.022308](https://doi.org/10.1103/PhysRevA.63.022308).
 5. S. Singh and I. Nechita, **“Diagonal unitary and orthogonal symmetries in quantum theory.”** *Quantum* **5**, 519 (2021). [DOI:10.22331/q-2021-08-09-519](https://doi.org/10.22331/q-2021-08-09-519).
-6. OpenAI, **“Classical capacity and entropy inequalities for generalized amplitude damping.”** OpenAI Math Release preprint (2026). [Github Repository](https://github.com/openai/math/blob/main/preprints/Classical-capacity-and-entropy-inequalities-for-generalized-amplitude-damping-September-24-2026/paper.pdf).
-7. K. Kitamura, **“Lean proof of strong Holevo additivity for qubit channels.”** (2026). [Github Repository](https://github.com/KitaKen1/qubit-strong-additivity).
+6. Z. Tang, C. Zhu, G. Bai, and X. Wang, **“Classical capacity and entanglement cost of the amplitude damping channel.”** (2026). [arXiv:2609.28592v1](https://arxiv.org/abs/2609.28592v1).
+7. K. Fang, **“The classical capacity of generalized amplitude-damping channels and its strong-converse exponent.”** (2026). [arXiv:2609.14621v2](https://arxiv.org/abs/2609.14621v2).
+8. OpenAI, **“Classical capacity and entropy inequalities for generalized amplitude damping.”** OpenAI Math Release preprint (2026). [Github Repository](https://github.com/openai/math/blob/main/preprints/Classical-capacity-and-entropy-inequalities-for-generalized-amplitude-damping-September-24-2026/paper.pdf).
+9. K. Kitamura, **“Lean proof of strong Holevo additivity for qubit channels.”** (2026). [Github Repository](https://github.com/KitaKen1/qubit-strong-additivity).
 
 ## Citation
 
