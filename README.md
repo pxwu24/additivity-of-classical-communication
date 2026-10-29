@@ -303,7 +303,7 @@ Both covariance and Schur multiplication refer to the same fixed basis. The form
 =\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
 ```
 
-**Lean verification:** [`phase_covariant_additivity` and `phase_covariant_angles_additivity`](SchurEntropy/PhaseCovariant/Results.lean). The hypothesis is actual covariance under every diagonal unitary in one fixed basis; the normal form is proved from it in [NormalForm.lean](SchurEntropy/PhaseCovariant/NormalForm.lean). The proof derives the pure-input entropy estimate from this repository's block inequality and applies the weaker entropic criterion at a diagonal optimal output center constructed by finite symmetry averaging. See the [corrected manuscript proof](docs/phase-covariant-proof-review.md) for the comparison input, noise-concavity step, and zero-weight conventions.
+**Lean verification:** [`phase_covariant_additivity` and `phase_covariant_angles_additivity`](SchurEntropy/PhaseCovariant/Results.lean). The hypothesis is actual covariance under every diagonal unitary in one fixed basis; the normal form is proved from it in [NormalForm.lean](SchurEntropy/PhaseCovariant/NormalForm.lean). The proof derives the pure-input entropy estimate from this repository's block inequality and applies the weaker entropic criterion at a diagonal optimal output center constructed by finite symmetry averaging. See the [proof](docs/phase-covariant-proof-review.md) for the comparison input, noise-concavity step, and zero-weight conventions.
 
 The exported variants `phase_covariant_states_additivity` and `phase_covariant_in_basis_additivity` accept covariance tested only on density matrices and covariance in any specified fixed orthonormal basis, respectively. The Lean theorem covers every positive finite dimension, including the trivial one-dimensional case.
 
@@ -356,7 +356,7 @@ The qubit-output decomposition has at most $`d-1`$ coherent Kraus operators, whe
 
 The manuscript also proposes a conjecture about a dimension threshold for the equality $`\mathcal C(\mathcal A)=\chi_{\max}(\mathcal A)`$ among square channels $`\mathbb M_d\to\mathbb M_d`$: equality for every channel up to some $`N\ge3`$, and explicit counterexamples in every dimension above $`N`$. This is a conjecture, not a Lean theorem or a consequence of the results proved here. Equality for repeated uses of one channel is also weaker than strong additivity with every partner channel.
 
-## Formalization index
+## Lean Formalization 
 
 | Completed result | Lean declaration | Proof |
 | --- | --- | --- |
