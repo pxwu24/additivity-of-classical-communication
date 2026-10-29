@@ -47,7 +47,7 @@ The common tool is the **Schur-weighted block entropy inequality** (Theorem 3.1)
 
 ## Classical capacity problem 
 
-Can entangling the inputs across independent channel uses increase the rate of classical communication? The manuscript studies this question for channels describing physically relevant noise, using a common matrix entropy inequality.
+Can entangling the inputs across independent channel uses increase the rate of classical communication? This fundamental question in quantum information theory is more subtle than it first appears. We focus on establishing no-go result here, that is, no entanglement advantage.
 
 All Hilbert spaces are finite dimensional, and a quantum channel is a completely positive, trace-preserving linear map. We write $`\mathbb{M}_d`$ for the complex $`d\times d`$ matrices and use logarithms to base two throughout.
 
