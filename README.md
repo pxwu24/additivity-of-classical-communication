@@ -293,7 +293,7 @@ is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses o
 
 ## Strong additivity for phase-covariant channels
 
-This is the main channel application of the block entropy inequality.
+This section is the first application of the block entropy inequality.
 
 Fix an orthonormal basis of $`\mathbb{C}^d`$. Here **phase covariance** means covariance under every diagonal unitary in this basis:
 
@@ -307,7 +307,7 @@ U_{\boldsymbol{\theta}}
 \boldsymbol{\theta}\in\mathbb{R}^d.
 ```
 
-The phases vary independently; covariance under a single Hamiltonian's time evolution is a different, generally weaker condition. The manuscript applies this symmetry to multilevel amplitude-damping, generalized dephasing, and damping–dephasing channels, as well as generalized amplitude-damping channels. Each application requires covariance under the full diagonal unitary group in the specified basis.
+We apply this symmetry to multilevel amplitude-damping, generalized dephasing, and damping–dephasing channels, as well as generalized amplitude-damping channels. It shows that all the examples discussed in [cite Leditzky et al.] are actually single-letter.
 
 **Lemma 4.1 (phase-covariant normal form).** The [Singh–Nechita normal form](#references) expresses such a channel as
 
