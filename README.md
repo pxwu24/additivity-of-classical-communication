@@ -1,12 +1,12 @@
 # Additivity of classical communication
 
-Lean companion to **“Classical communication over quantum channels: does entanglement help in nature?”** by Peixue Wu.
+In this project, we hope to make meaningful progress on the following problem: 
+Find $N \ge 2$, such that for all channels $\mc A: \mb M_d \to \mb M_d$ with $d \le N$, we have $\mc C(\mc A) = \Cchi(\mc A)$ and if $d > N$, there exists an explicit channel $\mc A: \mb M_d \to \mb M_d$ such that $\mc C(\mc A) > \Cchi(\mc A).$
 
-The central contribution is a **Schur-weighted block entropy inequality**. Together with a weaker entropic criterion, it proves strong additivity of the Holevo information for all channels covariant under diagonal unitaries in a fixed basis, including important models of damping and dephasing. A second application treats a class of qubit-output channels and recovers strong additivity for every qubit-to-qubit channel.
+Current progress on additivity of classical capacity:
 
-The presentation follows the manuscript: the capacity question, two entropic criteria, the block inequality and its analytic ingredients, then the phase-covariant and qubit applications. The qubit recovery and the formalization build on Kitamura’s work, with source attribution and the pinned dependency documented below.
+use the table attached
 
-**Verification status:** the two analytic lemmas, the block inequality, both entropic criteria, both channel applications, the phase-covariant normal form, and the general qubit-output decomposition lemma are proved in Lean. The statements include singular matrices, zero weights, and singular optimal output centers. See the [verification index](docs/verification.md) for the exact scope and recorded build and axiom-audit results.
 
 ## Contents
 
@@ -16,7 +16,7 @@ The presentation follows the manuscript: the capacity question, two entropic cri
 - [Strong additivity for phase-covariant channels](#strong-additivity-for-phase-covariant-channels)
 - [Qubit-output channels and the all-qubit result](#qubit-output-channels-and-the-all-qubit-result)
 - [Discussion and open directions](#discussion-and-open-directions)
-- [Formalization index](#formalization-index)
+- [Lean Formalization](#formalization-index)
 - [References](#references)
 - [Citation](#citation)
 
