@@ -380,7 +380,6 @@ First, **strong additivity for all qubit-output channels** remains open beyond t
 
 Second, the manuscript asks for a **dimension threshold for an entanglement advantage**: find $`N\ge2`$ such that every square channel of dimension $`d\le N`$ satisfies $`\mathcal C(\mathcal A)=\chi_{\max}(\mathcal A)`$, while every dimension $`d>N`$ admits an explicit square channel satisfying $`\mathcal C(\mathcal A)>\chi_{\max}(\mathcal A)`$. The all-qubit result settles the equality at $`d=2`$; it does not settle the threshold problem or all higher dimensions.
 
-These are open problems, not Lean theorems. The threshold question concerns repeated uses of one channel, whereas strong Holevo additivity requires equality with every partner channel.
 
 ## Lean Formalization
 
