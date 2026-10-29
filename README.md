@@ -93,7 +93,7 @@ for every finite-dimensional channel $`\mathcal{M}`$. In particular, strong addi
 
 ## Entropic criteria for additivity
 
-The channel applications use a lower bound on the output entropy of a bipartite pure input. The distinction between the two criteria below is the amount of information that the auxiliary ensemble must preserve on the first input system.
+We review two entropic criteria below.
 
 ### Standard criterion: preserve both reduced states
 
