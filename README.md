@@ -54,7 +54,11 @@ Allowing entangled codewords gives the classical capacity through regularization
 \chi_{\max}\left(\Phi^{\otimes n}\right).
 ```
 
-See [Holevo](#references) and [Schumacher–Westmoreland](#references) for the coding theorems. A channel $`\mathcal{A}`$ has **strongly additive Holevo information** if
+See [Holevo](#references) and [Schumacher–Westmoreland](#references) for the coding theorems. 
+
+We hope to characterize the channels for which \mathcal{C}(\Phi) = \chi_{\max}(\Phi), or \mathcal{C}(\Phi) > \chi_{\max}(\Phi).
+
+A related definition: A channel $`\mathcal{A}`$ has **strongly additive Holevo information** if
 
 ```math
 \chi_{\max}(\mathcal{A}\otimes\mathcal{M})
