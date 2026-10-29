@@ -1,7 +1,8 @@
 # Additivity of classical communication
 
-In this project, we hope to make meaningful progress on the following problem: 
-Find $N \ge 2$, such that for all channels $\mc A: \mb M_d \to \mb M_d$ with $d \le N$, we have $\mc C(\mc A) = \Cchi(\mc A)$ and if $d > N$, there exists an explicit channel $\mc A: \mb M_d \to \mb M_d$ such that $\mc C(\mc A) > \Cchi(\mc A).$
+In this project, we hope to make meaningful progress on the ultimate goal of classical capacity of quantum channels: 
+
+Find $N \ge 2$, such that for all channels $\mc A: \mb M_d \to \mb M_d$ with $d \le N$, we have $\mc C(\mc A) = \Cchi(\mc A)$ and if $d > N$, there exists a constructive channel $\mc A: \mb M_d \to \mb M_d$ such that $\mc C(\mc A) > \Cchi(\mc A)$. 
 
 Current progress on additivity of classical capacity:
 
