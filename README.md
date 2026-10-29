@@ -2,7 +2,7 @@
 
 This project (**human written, AI-assisted**) focuses on studying when entangling codewords across independent uses of a quantum channel **cannot** increase the rate of classical communication. It accompanies the paper titled **“Classical communication over quantum channels: does entanglement help in nature?”**, [see the manuscript here](Manuscript.pdf).
 
-A central open problem in this direction is to find an integer $`N\ge2`$ such that
+A central open problem in this direction is to find an integer $`N\ge2`$ such that the classical capacity
 
 ```math
 \mathcal C(\mathcal A)=\chi_{\max}(\mathcal A)
@@ -15,7 +15,7 @@ while, for every $`d>N`$, there is an explicit channel $`\mathcal A:\mathbb M_d\
 ```math
 \mathcal C(\mathcal A)>\chi_{\max}(\mathcal A).
 ```
-See below for related definitions. This threshold problem remains open. To the best of the author's knowledge, the threshold $`N`$ lies in the interval $`[2,2^{23}]`$.
+See below for related definitions. This threshold problem remains open. To the best of the author's knowledge, the threshold $`N`$ lies in the interval $`[2,2^{23}]`$. I think it is far from being solved, but who knows?
 
 The progress in the manuscript is some incremental results:
 
