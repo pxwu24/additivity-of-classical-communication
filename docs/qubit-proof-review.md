@@ -50,7 +50,7 @@ Use this basis from now on, and rename its diagonal blocks $A,D$ and its
 off-diagonal block $B$. Positivity of $Q$ gives
 
 ```math
-\operatorname{ran}B\subseteq\operatorname{ran}A,
+\mathrm{ran}\,B\subseteq\mathrm{ran}\,A,
 \qquad B^\dagger A^+B\le D,
 ```
 
@@ -59,7 +59,7 @@ directly by evaluating the positive quadratic form of $Q$ on
 $(-A^+Bx,x)$, using $AA^+B=B$.
 
 Put $T=A^{+1/2}B$. Multiplication by $A^{+1/2}$ is injective on
-$\operatorname{ran}A$, so $\operatorname{rank}T=r$. Take a reduced SVD
+$\mathrm{ran}\,A$, so $\mathrm{rank}\,T=r$. Take a reduced SVD
 
 ```math
 T=\sum_{s=1}^{r}\lambda_s|u_s\rangle\langle v_s|,
@@ -108,7 +108,7 @@ Suppose
 
 ```math
 \mathcal A(\rho)=K\rho K^\dagger+
- \sum_{i=0}^1\operatorname{Tr}(E_i\rho)|i\rangle\langle i|,
+ \sum_{i=0}^1\mathrm{Tr}(E_i\rho)|i\rangle\langle i|,
 \qquad K=|0\rangle\langle a_0|+|1\rangle\langle a_1|,
 ```
 
@@ -119,13 +119,13 @@ $\rho_A,\rho_{A'}$. Set
 
 ```math
 v_i=(\langle a_i|\otimes I)\psi,
-\qquad \tau_i=\operatorname{Tr}_A[(E_i\otimes I)|\psi\rangle\langle\psi|].
+\qquad \tau_i=\mathrm{Tr}_A[(E_i\otimes I)|\psi\rangle\langle\psi|].
 ```
 
 Although the product inside this partial trace need not be Hermitian,
 
 ```math
-\tau_i=\operatorname{Tr}_A[
+\tau_i=\mathrm{Tr}_A[
  (E_i^{1/2}\otimes I)|\psi\rangle\langle\psi|(E_i^{1/2}\otimes I)]\ge0.
 ```
 
@@ -134,7 +134,7 @@ $\rho_{A'}=\sum_i(|v_i\rangle\langle v_i|+\tau_i)$.
 For an arbitrary partner channel $\mathcal M$, put
 $H_{ij}=\mathcal M(|v_i\rangle\langle v_j|)$ and
 $W_i=\mathcal M(\tau_i)$; the block matrix $H$ is positive by complete
-positivity. Let $r_i=\|v_i\|^2$ and $y_i=\operatorname{Tr}\tau_i$.
+positivity. Let $r_i=\|v_i\|^2$ and $y_i=\mathrm{Tr}\,\tau_i$.
 The block entropy theorem with $C_{ij}=1$, followed by the unnormalized
 entropy scaling identity, gives
 
@@ -158,8 +158,8 @@ remaining partner states, weighted by $r_i,y_i$, form an ensemble of
 $\rho_{A'}$.
 
 It remains to construct an ensemble of $\rho_A$ whose mean output entropy
-is at most $S(T)$. Let $P$ project onto $\operatorname{supp}\rho_A$ and
-$m=\operatorname{rank}\rho_A\ge1$. On this support, the Hermitian operator
+is at most $S(T)$. Let $P$ project onto $\mathrm{supp}\,\rho_A$ and
+$m=\mathrm{rank}\,\rho_A\ge1$. On this support, the Hermitian operator
 
 ```math
 X=\rho_A^{1/2}
@@ -175,7 +175,7 @@ u_\ell=\frac1{\sqrt m}\sum_{k=0}^{m-1}
 e^{2\pi i k\ell/m}e_k.
 ```
 
-Then $\langle u_\ell,Xu_\ell\rangle=\operatorname{Tr}X/m=0$. Set
+Then $\langle u_\ell,Xu_\ell\rangle=\mathrm{Tr}\,X/m=0$. Set
 
 ```math
 p_\ell=\langle u_\ell,\rho_Au_\ell\rangle>0,
