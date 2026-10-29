@@ -423,7 +423,7 @@ The project builds on Kitamura’s matrix and channel-entropy library, pinned at
 
 ## Citation
 
-Peixue Wu, **“Classical communication over quantum channels: does entanglement help in nature?”** Manuscript in preparation (2026). Formal proofs: [Github Repository](https://github.com/pxwu24/additivity-of-classical-communication).
+Peixue Wu, **“Classical communication over quantum channels: does entanglement help in nature?”**, 2026. Formal proofs: [Github Repository](https://github.com/pxwu24/additivity-of-classical-communication).
 
 For the repository, the following BibTeX entry uses a clickable name rather than printing the URL (with `hyperref` enabled):
 
