@@ -376,8 +376,6 @@ In particular, every qubit-to-qubit channel $`\mathcal{A}:\mathbb{M}_2\to\mathbb
 
 ## Discussion and open directions
 
-Section 6 of the updated manuscript identifies two directions for further work.
-
 First, **strong additivity for all qubit-output channels** remains open beyond the class in Theorem 5.2. Lemma 5.1 gives at most $`d-1`$ coherent Kraus operators for a channel $`\mathcal A:\mathbb M_d\to\mathbb M_2`$. The proof of Theorem 5.2 handles one coherent Kraus operator; with several such operators, the current block entropy argument does not apply directly. Extending the block entropy inequality and the associated ensemble construction may address this larger class.
 
 Second, the manuscript asks for a **dimension threshold for an entanglement advantage**: find $`N\ge2`$ such that every square channel of dimension $`d\le N`$ satisfies $`\mathcal C(\mathcal A)=\chi_{\max}(\mathcal A)`$, while every dimension $`d>N`$ admits an explicit square channel satisfying $`\mathcal C(\mathcal A)>\chi_{\max}(\mathcal A)`$. The all-qubit result settles the equality at $`d=2`$; it does not settle the threshold problem or all higher dimensions.
