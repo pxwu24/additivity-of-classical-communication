@@ -112,7 +112,7 @@ For any ensemble $`\{p_\ell,\eta_\ell\}`$ attaining $`\chi_{\max}(\mathcal{A})`$
 
 is independent of the chosen optimal ensemble. We call $`\sigma_{\mathcal{A}}`$ the **optimal output center**. Uniqueness follows from [Holevo–Shirokov, Corollary 1](https://arxiv.org/abs/quant-ph/0306196); see also [Schumacher–Westmoreland, “Optimal signal ensembles”](https://arxiv.org/abs/quant-ph/9912122) for the relative-entropy characterization of optimal ensembles.
 
-If $`\sigma_{\mathcal{A}}`$ is singular, $`\log_2\sigma_{\mathcal{A}}`$ is interpreted on its support. Every output of $`\mathcal{A}`$ is supported there, so the trace pairings below are well defined.
+If $`\sigma_{\mathcal{A}}`$ is singular, $`\log_2\sigma_{\mathcal{A}}`$ is interpreted on its support. Every output of $`\mathcal{A}`$ is supported there, so everything below is well defined.
 
 **Proposition (weaker entropic criterion).** Let $`\mathcal{A}:A\to B`$ and $`\mathcal{M}:A'\to B'`$ be channels. Suppose that, for every bipartite pure state $`\psi`$ on $`AA'`$, with reduced states $`\rho_A`$ and $`\rho_{A'}`$, there exist finite ensembles of states $`\{p_\ell,\eta_\ell\}`$ on $`A`$ and $`\{q_k,\tau_k\}`$ on $`A'`$ such that
 
