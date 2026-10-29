@@ -409,7 +409,7 @@ lake exe cache get
 
 The recorded full build and axiom audit passed for **1,292** imported `SchurEntropy` declarations, with only `propext`, `Classical.choice`, and `Quot.sound` in their transitive axiom dependencies. The classical-capacity coding and regularization theorems and uniqueness of the optimal output center are cited background, not separately formalized results.
 
-The project builds on Kitamura’s matrix and channel-entropy library, pinned at commit `90e61c463deb42067c109c46f048c6374dfc5945`; see [Github Repository](https://github.com/KitaKen1/qubit-strong-additivity/tree/90e61c463deb42067c109c46f048c6374dfc5945). It imports the generic standard entropic criterion and adapts several matrix-calculus and channel arguments. The local channel theorems derive their entropy bounds from this repository’s Schur-weighted block inequality. Source provenance and licenses are recorded in [third-party notice](Lean/third_party/NOTICE).
+
 
 ## References
 
