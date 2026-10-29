@@ -1,8 +1,8 @@
 # A Schur-weighted block entropy inequality and its application to classical capacity of quantum channels
 
-This repository is the Lean companion to the forthcoming paper of the same title. It contains formal proofs of a Schur-weighted block entropy inequality, two entropic criteria for Holevo additivity, and strong additivity for the manuscript's single-coherent-Kraus qubit-output class, including all qubit-to-qubit channels.
+This repository is the Lean companion to the forthcoming paper of the same title. It contains formal proofs of a Schur-weighted block entropy inequality, two entropic criteria for Holevo additivity, and strong additivity for all fixed-basis phase-covariant channels and the manuscript's single-coherent-Kraus qubit-output class, including all qubit-to-qubit channels.
 
-**Current status:** the optimized concavity lemma (including minimum attainment), scalar joint convexity, the Schur-weighted block entropy inequality, both entropic criteria, the general qubit-output decomposition lemma, and **Result 2 below, including all qubit-to-qubit channels**, are fully proved in Lean. The proofs include singular matrices, zero weights, and singular optimal output centers. The phase-covariant application remains future formalization work. See the [verification index](docs/verification.md) and [axiom audit](Audit.lean).
+**Current status:** the optimized concavity lemma (including minimum attainment), scalar joint convexity, the Schur-weighted block entropy inequality, both entropic criteria, both main additivity results, the phase-covariant normal form, and the general qubit-output decomposition lemma are fully proved in Lean. The proofs include singular matrices, zero weights, and singular optimal output centers. See the [verification index](docs/verification.md) and [axiom audit](Audit.lean).
 
 ## Contents
 
@@ -79,6 +79,10 @@ The phases vary independently; covariance under a single Hamiltonian's time evol
 \chi_{\max}(\mathcal{A}\otimes\mathcal{M})
 =\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
 ```
+
+**Lean verification:** [`phase_covariant_additivity` and `phase_covariant_angles_additivity`](SchurEntropy/PhaseCovariant/Results.lean). The hypothesis is actual covariance under every diagonal unitary in one fixed basis; the normal form is proved from it in [NormalForm.lean](SchurEntropy/PhaseCovariant/NormalForm.lean). The proof derives the pure-input entropy estimate from this repository's block inequality and applies the weaker entropic criterion at a diagonal optimal output center constructed by finite symmetry averaging. See the [corrected manuscript proof](docs/phase-covariant-proof-review.md) for the comparison input, noise-concavity step, and zero-weight conventions.
+
+The exported variants `phase_covariant_states_additivity` and `phase_covariant_in_basis_additivity` accept covariance tested only on density matrices and covariance in any specified fixed orthonormal basis, respectively. The Lean theorem covers every positive finite dimension, including the trivial one-dimensional case.
 
 ### 2. Qubit-output channels
 
@@ -330,6 +334,8 @@ is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses o
 | Schur-weighted block entropy inequality | `SchurEntropy.block_entropy_inequality` | [Results.lean](SchurEntropy/Results.lean) |
 | Standard entropic criterion | `SchurEntropy.Capacity.standard_entropic_criterion` | [StandardCriterion.lean](SchurEntropy/Capacity/StandardCriterion.lean) |
 | Weaker output-center criterion | `SchurEntropy.Capacity.output_center_entropic_criterion` | [OutputCenterCriterion.lean](SchurEntropy/Capacity/OutputCenterCriterion.lean) |
+| Result 1: all fixed-basis phase-covariant channels | `SchurEntropy.PhaseCovariant.phase_covariant_additivity` | [PhaseCovariant/Results.lean](SchurEntropy/PhaseCovariant/Results.lean) |
+| Fixed-basis phase-covariant normal form | `SchurEntropy.PhaseCovariant.phaseCovariant_iff_normalForm` | [NormalForm.lean](SchurEntropy/PhaseCovariant/NormalForm.lean) |
 | Result 2: single-coherent-Kraus qubit-output channels | `SchurEntropy.Qubit.single_coherent_qubit_output_additivity` | [Qubit/Results.lean](SchurEntropy/Qubit/Results.lean) |
 | All qubit-to-qubit channels | `SchurEntropy.Qubit.all_qubit_channels_additivity` | [Qubit/Results.lean](SchurEntropy/Qubit/Results.lean) |
 | General qubit-output decomposition with at most $`d-1`$ coherent Kraus operators | `SchurEntropy.Qubit.exists_qubit_output_decomposition_general` | [DecompositionGeneral.lean](SchurEntropy/Qubit/DecompositionGeneral.lean) |
@@ -341,7 +347,7 @@ lake exe cache get
 ./scripts/check.sh
 ```
 
-The phase-covariant application and the classical-capacity coding and regularization theorems are not yet formalized here.
+The classical-capacity coding and regularization theorems are not separately formalized here.
 
 ## References
 

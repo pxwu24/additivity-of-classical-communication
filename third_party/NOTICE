@@ -49,6 +49,7 @@ Further adapted source from the same upstream project and commit:
   SchurEntropy/Qubit/DecompositionRotation.lean NormalForm.lean
   SchurEntropy/Qubit/DecompositionGeneral.lean NormalChannel.lean
   SchurEntropy/Qubit/PSDFactor.lean         NormalSchur.lean, NormalCommonBranch.lean
+  SchurEntropy/PhaseCovariant/NoiseEntropy.lean Partner.lean
 
 Upstream paths above are relative to lean/QubitAdditivity/ in
 https://github.com/KitaKen1/qubit-strong-additivity at commit
@@ -80,6 +81,12 @@ arguments to arbitrary input dimension. PSDFactor generalizes the positive
 Schur-complement and compactness construction to an arbitrary fixed number
 of common Kraus columns. The exact channel additivity results are assembled
 locally from these ingredients and this repository's block entropy theorem.
+
+PhaseCovariant/NoiseEntropy.lean generalizes the normalization and Jensen
+argument from Partner.lean to arbitrary nonnegative masses and density
+matrices, including zero total mass. The phase-covariant channel theorem is
+assembled locally from the proved normal form, finite symmetry averaging,
+this repository's block entropy theorem, and the weaker entropic criterion.
 
 DecompositionRotation.lean also follows the determinant coefficient proof
 pattern in Mathlib/LinearAlgebra/Matrix/Polynomial.lean, mathlib commit

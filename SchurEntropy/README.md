@@ -11,6 +11,16 @@ The two completed entropic criteria are exported by [Capacity/Results.lean](Capa
 - `Capacity.standard_entropic_criterion`: preserving both reduced states implies Holevo additivity.
 - `Capacity.output_center_entropic_criterion`: preserving the first output-center expectation and the second reduced state implies Holevo additivity, including singular centers.
 
+[PhaseCovariant/Results.lean](PhaseCovariant/Results.lean) exports Result 1:
+
+- `PhaseCovariant.phase_covariant_additivity`: covariance under all diagonal unitaries in one fixed basis implies strong additivity against every finite-dimensional partner.
+- `PhaseCovariant.phase_covariant_angles_additivity`: the same conclusion with the manuscript's real-phase parametrization.
+- `PhaseCovariant.phase_covariant_states_additivity`: covariance need only be checked on density matrices.
+- `PhaseCovariant.phase_covariant_in_basis_additivity`: a specified unitary chooses any fixed orthonormal basis.
+- `PhaseCovariant.normal_form_additivity`: the corresponding theorem for a specified Schur-plus-classical normal form.
+
+[PhaseCovariant/NormalForm.lean](PhaseCovariant/NormalForm.lean) proves both directions of the normal-form characterization from actual covariance and CPTP. Finite sign averaging constructs an actual optimal ensemble with diagonal output center, and the local block-entropy bridge supplies the weaker criterion's entropy estimate.
+
 [Qubit/Results.lean](Qubit/Results.lean) exports Result 2:
 
 - `Qubit.single_coherent_qubit_output_additivity`: arbitrary finite input dimension, one coherent Kraus operator, and two positive commuting-output effects.
@@ -39,5 +49,10 @@ The source is organized into these groups:
 | `Qubit/PSDFactor`, `Qubit/RankFactorization`, `Qubit/RankPadding` | Rank-sized PSD block factors, singular limits, and zero padding to the stated number of Kraus operators |
 | `Qubit/Ensemble*` | Balanced pure-state ensembles in arbitrary input dimension and the scalar entropy bound |
 | `Qubit/BlockEntropyBridge`, `Qubit/ChannelBound*`, `Qubit/Results` | Specialization of the Schur theorem, exact compatible ensembles, and strong additivity |
+| `PhaseCovariant/Definitions`, `PhaseCovariant/CharacterSupport`, `PhaseCovariant/NormalForm`, `PhaseCovariant/CovarianceOnStates` | Genuine fixed-basis covariance, matrix-unit characters, the proved normal form, and equivalence of state-only covariance |
+| `PhaseCovariant/SignAveraging`, `PhaseCovariant/OptimalCenter` | Finite symmetrization of an attaining ensemble and a diagonal optimal output center |
+| `PhaseCovariant/ComparisonState`, `PhaseCovariant/LogCompatibility` | Positive-amplitude comparison input and the weaker logarithmic compatibility |
+| `PhaseCovariant/BlockEntropyBridge`, `PhaseCovariant/NoiseEntropy`, `PhaseCovariant/EntropyBound*` | General block-entropy specialization, noise concavity, and the exact pure-input bound |
+| `PhaseCovariant/UnitaryInvariance`, `PhaseCovariant/Results` | Basis changes, weaker-criterion assembly, and strong additivity |
 
-See the [verification index](../docs/verification.md) for exact declarations, reproducible build instructions, and axiom checks. The weaker entropic criterion applies to any specified optimal ensemble; it does not require a separate uniqueness theorem for the center. The phase-covariant application remains future formalization work.
+See the [verification index](../docs/verification.md) for exact declarations, reproducible build instructions, and axiom checks. The weaker entropic criterion applies to any specified optimal ensemble; the phase-covariant proof uses its symmetrized optimum and does not require a separate uniqueness theorem for the center.

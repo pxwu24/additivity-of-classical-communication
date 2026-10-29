@@ -29,6 +29,13 @@ run_cmd do
 #print axioms SchurEntropy.Qubit.single_coherent_qubit_output_additivity
 #print axioms SchurEntropy.Qubit.all_qubit_channels_additivity
 #print axioms SchurEntropy.Qubit.exists_qubit_output_decomposition_general
+#print axioms SchurEntropy.PhaseCovariant.phaseCovariant_iff_normalForm
+#print axioms SchurEntropy.PhaseCovariant.phaseCovariant_iff_anglesOnStates
+#print axioms SchurEntropy.PhaseCovariant.exists_diagonal_optimal_ensemble
+#print axioms SchurEntropy.PhaseCovariant.NormalForm.pure_entropy_bound
+#print axioms SchurEntropy.PhaseCovariant.phase_covariant_additivity
+#print axioms SchurEntropy.PhaseCovariant.phase_covariant_states_additivity
+#print axioms SchurEntropy.PhaseCovariant.phase_covariant_in_basis_additivity
 
 example : SchurEntropy.OptimizedConcavityStatement := SchurEntropy.optimizedConcavity
 example : SchurEntropy.ScalarConvexityStatement := SchurEntropy.scalar_joint_convexity
@@ -113,3 +120,48 @@ example (Φ : CPTPMap D (Fin 2)) :
   exists_qubit_output_decomposition_general Φ
 
 end QubitStatements
+
+/-! Result 1 with the actual density-state covariance hypothesis exposed. -/
+section PhaseCovariantStatements
+open Matrix QubitAdditivity SchurEntropy.Capacity SchurEntropy.PhaseCovariant
+open scoped Matrix BigOperators ComplexOrder MatrixMap
+
+variable {d f g : Type*}
+variable [Fintype d] [DecidableEq d] [Nonempty d]
+variable [Fintype f] [DecidableEq f] [Nonempty f]
+variable [Fintype g] [DecidableEq g]
+
+example (Φ : CPTPMap d d) (Ω : CPTPMap f g)
+    (h : ∀ (θ : d → ℝ) (ρ : MState d),
+      Φ.map (Matrix.diagonal (fun i => Complex.exp ((θ i : ℂ) * Complex.I)) * ρ.m *
+        (Matrix.diagonal (fun i => Complex.exp ((θ i : ℂ) * Complex.I)))ᴴ) =
+      Matrix.diagonal (fun i => Complex.exp ((θ i : ℂ) * Complex.I)) * Φ.map ρ.m *
+        (Matrix.diagonal (fun i => Complex.exp ((θ i : ℂ) * Complex.I)))ᴴ) :
+    holevoInformation (Φ ⊗ᶜᵖ Ω) = holevoInformation Φ + holevoInformation Ω :=
+  phase_covariant_states_additivity Φ Ω h
+
+example (Φ : CPTPMap d d) (Ω : CPTPMap f g)
+    (h : ∀ (z : d → ℂ), (∀ i, ‖z i‖ = 1) → ∀ X : Matrix d d ℂ,
+      Φ.map (Matrix.diagonal z * X * (Matrix.diagonal z)ᴴ) =
+        Matrix.diagonal z * Φ.map X * (Matrix.diagonal z)ᴴ) :
+    holevoInformation (Φ ⊗ᶜᵖ Ω) = holevoInformation Φ + holevoInformation Ω :=
+  phase_covariant_additivity Φ Ω h
+
+example (Φ : CPTPMap d d) :
+    (∀ (z : d → ℂ), (∀ i, ‖z i‖ = 1) → ∀ X : Matrix d d ℂ,
+      Φ.map (Matrix.diagonal z * X * (Matrix.diagonal z)ᴴ) =
+        Matrix.diagonal z * Φ.map X * (Matrix.diagonal z)ᴴ) ↔
+    ∃ (C : Matrix d d ℂ) (p : Matrix d d ℝ),
+      C.PosSemidef ∧ (∀ i j, 0 ≤ p i j) ∧ (∀ j, ∑ i, p i j = 1) ∧
+      (∀ i, C i i = (p i i : ℂ)) ∧
+      ∀ X : Matrix d d ℂ,
+        Φ.map X = C.hadamard X + Matrix.diagonal
+          (fun i => ∑ j, if i ≠ j then (p i j : ℂ) * X j j else 0) := by
+  constructor
+  · intro h
+    let N := normalFormOfPhaseCovariant Φ h
+    exact ⟨N.C, N.p, N.C_psd, N.p_nonneg, N.p_colsum, N.C_diag, N.action⟩
+  · rintro ⟨C, p, hC, hp, hs, hd, ha⟩
+    exact NormalForm.phaseCovariant Φ ⟨C, p, hC, hp, hs, hd, ha⟩
+
+end PhaseCovariantStatements

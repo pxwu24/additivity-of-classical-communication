@@ -1,6 +1,6 @@
 # Verification status
 
-The two analytic lemmas, the Schur-weighted block entropy inequality, both entropic criteria, and Result 2 (including all qubit-to-qubit channels) are proved in Lean 4. Their exported theorems have exactly the stated mathematical hypotheses. The definitions use actual complex matrices and spectral entropy in bits, with `0 log 0 = 0`; the channel results use concrete completely positive trace-preserving maps and finite ensembles of density matrices.
+The two analytic lemmas, the Schur-weighted block entropy inequality, both entropic criteria, Result 1 (all fixed-basis phase-covariant channels), and Result 2 (including all qubit-to-qubit channels) are proved in Lean 4. Their exported theorems have exactly the stated mathematical hypotheses. The definitions use actual complex matrices and spectral entropy in bits, with `0 log 0 = 0`; the channel results use concrete completely positive trace-preserving maps and finite ensembles of density matrices.
 
 ## Completed manuscript results
 
@@ -11,6 +11,8 @@ The two analytic lemmas, the Schur-weighted block entropy inequality, both entro
 | Schur-weighted block entropy inequality | `SchurEntropy.block_entropy_inequality : BlockEntropyStatement` | [Results.lean](../SchurEntropy/Results.lean) |
 | Standard entropic criterion | `SchurEntropy.Capacity.standard_entropic_criterion` | [StandardCriterion.lean](../SchurEntropy/Capacity/StandardCriterion.lean) |
 | Weaker output-center criterion | `SchurEntropy.Capacity.output_center_entropic_criterion` | [OutputCenterCriterion.lean](../SchurEntropy/Capacity/OutputCenterCriterion.lean) |
+| All fixed-basis phase-covariant channels | `SchurEntropy.PhaseCovariant.phase_covariant_additivity` | [PhaseCovariant/Results.lean](../SchurEntropy/PhaseCovariant/Results.lean) |
+| Fixed-basis phase-covariant normal form | `SchurEntropy.PhaseCovariant.phaseCovariant_iff_normalForm` | [NormalForm.lean](../SchurEntropy/PhaseCovariant/NormalForm.lean) |
 | Single-coherent-Kraus qubit-output channels | `SchurEntropy.Qubit.single_coherent_qubit_output_additivity` | [Qubit/Results.lean](../SchurEntropy/Qubit/Results.lean) |
 | All qubit-to-qubit channels | `SchurEntropy.Qubit.all_qubit_channels_additivity` | [Qubit/Results.lean](../SchurEntropy/Qubit/Results.lean) |
 | General qubit-output decomposition | `SchurEntropy.Qubit.exists_qubit_output_decomposition_general` | [DecompositionGeneral.lean](../SchurEntropy/Qubit/DecompositionGeneral.lean) |
@@ -21,7 +23,21 @@ The optimized lemma proves attainment of the literal `sInf`-defined value over a
 
 Both criteria conclude `holevoInformation (Φ ⊗ᶜᵖ Ω) = holevoInformation Φ + holevoInformation Ω` for arbitrary finite-dimensional CPTP maps with nonempty input spaces. The standard hypothesis preserves both reduced input states. The weaker hypothesis preserves only the first output's logarithmic expectation at an optimal center, together with the second reduced input state. Both require the manuscript's entropy bound for every bipartite pure input.
 
-The phase-covariant application, the classical-capacity coding and regularization theorems, and uniqueness of the optimal output center are not separately formalized here.
+The classical-capacity coding and regularization theorems and uniqueness of the optimal output center are not separately formalized here.
+
+## Result 1 and the phase-covariant application
+
+[PhaseCovariant/Definitions.lean](../SchurEntropy/PhaseCovariant/Definitions.lean) defines covariance independently of any normal form, as commutation with conjugation by every diagonal unitary in one fixed basis. It proves equivalence with the manuscript's real-angle parametrization. [NormalForm.lean](../SchurEntropy/PhaseCovariant/NormalForm.lean) proves the characterization in both directions: matrix-unit characters force the entrywise action, a principal Choi submatrix supplies the positive Schur coefficient matrix, and trace preservation gives the column-stochastic transition coefficients.
+
+[CovarianceOnStates.lean](../SchurEntropy/PhaseCovariant/CovarianceOnStates.lean) proves that testing covariance only on density matrices is equivalent to the full linear-map identity. `phase_covariant_states_additivity` accepts precisely that state-only, real-angle hypothesis. `phase_covariant_in_basis_additivity` allows any specified fixed orthonormal basis, represented by a unitary. The dimension assumptions are only finite, nonempty input spaces; one-dimensional channels are included.
+
+[OptimalCenter.lean](../SchurEntropy/PhaseCovariant/OptimalCenter.lean) starts with an actually attaining finite ensemble and averages over all diagonal sign unitaries. Its average output is diagonal, individual output entropies are unchanged, and entropy concavity shows that the new ensemble remains optimal. This constructs the center needed for the weaker criterion without assuming uniqueness.
+
+[ComparisonState.lean](../SchurEntropy/PhaseCovariant/ComparisonState.lean) constructs the positive-amplitude pure input with the same diagonal as the original first marginal. [LogCompatibility.lean](../SchurEntropy/PhaseCovariant/LogCompatibility.lean) proves that a diagonal output-center logarithm sees only this diagonal, including when the center is singular. The support justification is inherited from the proved optimal-center criterion.
+
+[BlockEntropyBridge.lean](../SchurEntropy/PhaseCovariant/BlockEntropyBridge.lean) derives the arbitrary-block entropy estimate from this repository's Schur-weighted theorem. [EntropyBound.lean](../SchurEntropy/PhaseCovariant/EntropyBound.lean) applies it to the actual joint channel output. Unnormalized branch vectors, scalar entropy scaling, concavity for each noise mixture, and column stochasticity yield the comparison-input entropy plus the average partner-output entropy. Zero branches retain zero weight and do not require division by zero.
+
+[Results.lean](../SchurEntropy/PhaseCovariant/Results.lean) assembles explicit finite ensembles and invokes `output_center_criterion_of_optimal_ensemble`. The final covariance theorem has no normal-form, entropy-bound, center, or optimizer hypothesis. [UnitaryInvariance.lean](../SchurEntropy/PhaseCovariant/UnitaryInvariance.lean) proves invariance under a fixed change of input and output coordinates, also after tensoring with an arbitrary partner. The [proof review](phase-covariant-proof-review.md) gives the corrected mathematical argument and identifies the two mistaken identities in the submitted draft.
 
 ## Result 2 and the qubit application
 
@@ -83,6 +99,8 @@ lake exe cache get
 ./scripts/check.sh
 ```
 
-The [check script](../scripts/check.sh) runs the project build and [Audit.lean](../Audit.lean). The audit traverses every imported declaration in the `SchurEntropy` namespace and rejects any transitive axiom other than `propext`, `Classical.choice`, and `Quot.sound`. In particular, it rejects `sorryAx`, including through imported proofs. It also prints the transitive axioms and checks the exact types of the matrix results, both criteria, the weaker criterion for any specified optimal ensemble, the general decomposition lemma, and both Result 2 conclusions with the positive-effect representation exposed.
+The [check script](../scripts/check.sh) runs the project build and [Audit.lean](../Audit.lean). The audit traverses every imported declaration in the `SchurEntropy` namespace and rejects any transitive axiom other than `propext`, `Classical.choice`, and `Quot.sound`. In particular, it rejects `sorryAx`, including through imported proofs. It also prints the transitive axioms and checks the exact types of the matrix results, both criteria, the weaker criterion for any specified optimal ensemble, Result 1 with covariance exposed, the normal-form equivalence, the general decomposition lemma, and both Result 2 conclusions with the positive-effect representation exposed.
 
 Source provenance and the licenses of adapted excerpts are recorded in [third_party/NOTICE](../third_party/NOTICE).
+
+The verification run including Result 1 passed the full build and audited **1,292** imported `SchurEntropy` declarations. Only `propext`, `Classical.choice`, and `Quot.sound` occur in their transitive axiom dependencies.
