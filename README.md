@@ -21,10 +21,10 @@ The progress in the manuscript is some incremental results:
 
 | Channel class | Result | Manuscript |
 | --- | --- | --- |
-| All phase-covariant channels in a fixed basis, in arbitrary finite dimension | Strong Holevo additivity with every partner channel | Theorem 4.2 |
-| Qubit-output channels with one coherent Kraus operator and commuting-output noise | Strong Holevo additivity with every partner channel | Theorem 5.2 |
-| All qubit-to-qubit channels | Strong Holevo additivity, obtained from the decomposition in Lemma 5.1 | Theorem 5.2 |
-| All qubit-output channels with arbitrary input dimension | Open beyond the class covered by Theorem 5.2 | Section 6 |
+| All phase-covariant channels in a fixed basis, in arbitrary finite dimension | Strong Holevo additivity | Theorem 4.2 |
+| Qubit-output channels with one coherent Kraus operator and commuting-output noise | Strong Holevo additivity  | Theorem 5.2 |
+| All qubit-to-qubit channels | Strong Holevo additivity | Theorem 5.2 |
+| All qubit-output channels with arbitrary input dimension | Remains open: beyond the class covered by Theorem 5.2 | Section 6 |
 
 The common tool is the **Schur-weighted block entropy inequality** (Theorem 3.1), combined with the entropic criteria in Section 2. Strong Holevo additivity implies equality of classical capacity and single-use Holevo information.
 
@@ -45,7 +45,7 @@ The common tool is the **Schur-weighted block entropy inequality** (Theorem 3.1)
 - [References](#references)
 - [Citation](#citation)
 
-## Capacity problem and notation
+## Classical capacity problem 
 
 Can entangling the inputs across independent channel uses increase the rate of classical communication? The manuscript studies this question for channels describing physically relevant noise, using a common matrix entropy inequality.
 
