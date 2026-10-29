@@ -15,7 +15,7 @@ while, for every $`d>N`$, there is an explicit channel $`\mathcal A:\mathbb M_d\
 ```math
 \mathcal C(\mathcal A)>\chi_{\max}(\mathcal A).
 ```
-See below for related definitions. I think the problem is far from being solves. To the best of the author's knowledge this N in [2. 2^{23}]. 
+See below for related definitions. This threshold problem remains open. To the best of the author's knowledge, the threshold $`N`$ lies in the interval $`[2,2^{23}]`$.
 
 The progress in the manuscript is some incremental results:
 
@@ -307,7 +307,7 @@ U_{\boldsymbol{\theta}}
 \boldsymbol{\theta}\in\mathbb{R}^d.
 ```
 
-We apply this symmetry to multilevel amplitude-damping, generalized dephasing, and damping–dephasing channels, as well as generalized amplitude-damping channels. It shows that all the examples discussed in [cite Leditzky et al.] are actually single-letter.
+We apply this symmetry to multilevel amplitude-damping, generalized dephasing, and damping–dephasing channels, as well as generalized amplitude-damping channels. In particular, Theorem 4.2 implies that all channel examples discussed in Section IV of [Leditzky et al., *Physical Review A* **97**, 012332 (2018)](https://doi.org/10.1103/PhysRevA.97.012332)—amplitude damping, its mixture with depolarizing noise, and its composition with dephasing noise—have single-letter classical capacity, $`\mathcal{C}(\mathcal{A})=\chi_{\max}(\mathcal{A})`$.
 
 **Lemma 4.1 (phase-covariant normal form).** The [Singh–Nechita normal form](#references) expresses such a channel as
 
@@ -422,6 +422,7 @@ The recorded full build and axiom audit passed for **1,292** imported `SchurEntr
 7. K. Fang, **“The classical capacity of generalized amplitude-damping channels and its strong-converse exponent.”** (2026). [arXiv:2609.14621v2](https://arxiv.org/abs/2609.14621v2).
 8. OpenAI, **“Classical capacity and entropy inequalities for generalized amplitude damping.”** OpenAI Math Release preprint (2026). [Github Repository](https://github.com/openai/math/blob/main/preprints/Classical-capacity-and-entropy-inequalities-for-generalized-amplitude-damping-September-24-2026/paper.pdf).
 9. K. Kitamura, **“Lean proof of strong Holevo additivity for qubit channels.”** (2026). [Github Repository](https://github.com/KitaKen1/qubit-strong-additivity).
+10. F. Leditzky, E. Kaur, N. Datta, and M. M. Wilde, **“Approaches for approximate additivity of the Holevo information of quantum channels.”** *Physical Review A* **97**, 012332 (2018). [DOI:10.1103/PhysRevA.97.012332](https://doi.org/10.1103/PhysRevA.97.012332). [arXiv:1709.01111](https://arxiv.org/abs/1709.01111).
 
 ## Citation
 
