@@ -17,7 +17,7 @@ while, for every $`d>N`$, there is an explicit channel $`\mathcal A:\mathbb M_d\
 ```
 See below for related definitions. I think the problem is far from being solves, but who knows?
 
-The progress [in the manuscript](Manuscript.pdf) is some incremental results:
+The progress in the manuscript is some incremental results:
 
 | Channel class | Result | Manuscript |
 | --- | --- | --- |
@@ -31,7 +31,7 @@ The common tool is the **Schur-weighted block entropy inequality** (Theorem 3.1)
 ## Repository guide
 
 - [Lean/](Lean/) contains the verified Lean project, its build configuration, dependency licenses, and [verification record](Lean/verification.md).
-- [Proofs/](Proofs/) contains mathematical proofs organized by the numbered results in the manuscript.
+- [Proofs/](Proofs/) contains mathematical proofs organized by the numbered results [in the manuscript](Manuscript.pdf).
 
 ## Contents
 
