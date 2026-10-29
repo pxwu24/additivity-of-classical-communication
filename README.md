@@ -11,7 +11,7 @@ use the table attached
 
 ## Contents
 
-- [Capacity problem and notation](#capacity-problem-and-notation)
+- [Problem statement](#capacity-problem-and-notation)
 - [Entropic criteria for additivity](#entropic-criteria-for-additivity)
 - [Schur-weighted block entropy inequality](#schur-weighted-block-entropy-inequality)
 - [Strong additivity for phase-covariant channels](#strong-additivity-for-phase-covariant-channels)
