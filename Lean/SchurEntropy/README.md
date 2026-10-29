@@ -73,4 +73,4 @@ The source is organized into these groups:
 | `Qubit/Ensemble*` | Balanced pure-state ensembles in arbitrary input dimension and the scalar entropy bound |
 | `Qubit/BlockEntropyBridge`, `Qubit/ChannelBound*`, `Qubit/Results` | Specialization of the Schur theorem, exact compatible ensembles, and strong additivity |
 
-See the [verification index](../docs/verification.md) for exact declarations, reproducible build instructions, and axiom checks. The weaker entropic criterion applies to any specified optimal ensemble; the phase-covariant proof uses its symmetrized optimum and does not require a separate uniqueness theorem for the center.
+See the [verification index](../verification.md) for exact declarations, reproducible build instructions, and axiom checks. The weaker entropic criterion applies to any specified optimal ensemble; the phase-covariant proof uses its symmetrized optimum and does not require a separate uniqueness theorem for the center.

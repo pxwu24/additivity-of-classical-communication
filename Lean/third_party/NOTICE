@@ -1,3 +1,5 @@
+Local paths in this notice are relative to the Lean/ project directory.
+
 SchurEntropy/Isometry.lean contains an adapted excerpt from:
   KitaKen1/qubit-strong-additivity
   commit 90e61c463deb42067c109c46f048c6374dfc5945
