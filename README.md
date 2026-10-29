@@ -15,7 +15,7 @@ while, for every $`d>N`$, there is an explicit channel $`\mathcal A:\mathbb M_d\
 ```math
 \mathcal C(\mathcal A)>\chi_{\max}(\mathcal A).
 ```
-See below for related definitions. I think the problem is far from being solve, but who knows?
+See below for related definitions. I think the problem is far from being solves, but who knows?
 
 The progress [in the manuscript](Manuscript.pdf) is some incremental results:
 
