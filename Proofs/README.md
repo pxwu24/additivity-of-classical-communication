@@ -5,7 +5,7 @@ results in **“Classical communication over quantum channels: does entanglement
 help in nature?”**, using the updated PDF's numbering. They include the
 normalization, support, and boundary details needed in singular cases.
 
-The supplied [manuscript PDF](Manuscript.pdf) is preserved as provided. The
+The supplied [manuscript PDF](../Manuscript.pdf) is preserved as provided. The
 Markdown proofs supply the detailed arguments and corrections discussed
 alongside the formalization, while retaining the PDF's result numbering.
 
