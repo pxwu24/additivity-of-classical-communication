@@ -1,21 +1,28 @@
-# A Schur-weighted block entropy inequality and its application to classical capacity of quantum channels
+# Additivity of classical communication
 
-This repository is the Lean companion to the forthcoming paper of the same title. It contains formal proofs of a Schur-weighted block entropy inequality, two entropic criteria for Holevo additivity, and strong additivity for all fixed-basis phase-covariant channels and the manuscript's single-coherent-Kraus qubit-output class, including all qubit-to-qubit channels.
+Lean companion to **“Classical communication over quantum channels: does entanglement help in nature?”** by Peixue Wu.
 
-**Current status:** the optimized concavity lemma (including minimum attainment), scalar joint convexity, the Schur-weighted block entropy inequality, both entropic criteria, both main additivity results, the phase-covariant normal form, and the general qubit-output decomposition lemma are fully proved in Lean. The proofs include singular matrices, zero weights, and singular optimal output centers. See the [verification index](docs/verification.md) and [axiom audit](Audit.lean).
+The central contribution is a **Schur-weighted block entropy inequality**. Together with a weaker entropic criterion, it proves strong additivity of the Holevo information for all channels covariant under diagonal unitaries in a fixed basis, including important models of damping and dephasing. A second application treats a class of qubit-output channels and recovers strong additivity for every qubit-to-qubit channel.
+
+The presentation follows the manuscript: the capacity question, two entropic criteria, the block inequality and its analytic ingredients, then the phase-covariant and qubit applications. The qubit recovery and the formalization build on Kitamura’s work, with source attribution and the pinned dependency documented below.
+
+**Verification status:** the two analytic lemmas, the block inequality, both entropic criteria, both channel applications, the phase-covariant normal form, and the general qubit-output decomposition lemma are proved in Lean. The statements include singular matrices, zero weights, and singular optimal output centers. See the [verification index](docs/verification.md) for the exact scope and recorded build and axiom-audit results.
 
 ## Contents
 
 - [Capacity problem and notation](#capacity-problem-and-notation)
-- [Main results](#main-results)
 - [Entropic criteria for additivity](#entropic-criteria-for-additivity)
 - [Schur-weighted block entropy inequality](#schur-weighted-block-entropy-inequality)
-- [Technical ingredients](#technical-ingredients)
+- [Strong additivity for phase-covariant channels](#strong-additivity-for-phase-covariant-channels)
+- [Qubit-output channels and the all-qubit result](#qubit-output-channels-and-the-all-qubit-result)
+- [Discussion and open directions](#discussion-and-open-directions)
 - [Formalization index](#formalization-index)
 - [References](#references)
 - [Citation](#citation)
 
 ## Capacity problem and notation
+
+Can entangling the inputs across independent channel uses increase the rate of classical communication? The manuscript studies this question for channels describing physically relevant noise, using a common matrix entropy inequality.
 
 All Hilbert spaces are finite dimensional, and a quantum channel is a completely positive, trace-preserving linear map. We write $`\mathbb{M}_d`$ for the complex $`d\times d`$ matrices and use logarithms to base two throughout.
 
@@ -55,83 +62,13 @@ See [Holevo](#references) and [Schumacher–Westmoreland](#references) for the c
 
 for every finite-dimensional channel $`\mathcal{M}`$. In particular, strong additivity implies $`\mathcal{C}(\mathcal{A})=\chi_{\max}(\mathcal{A})`$.
 
-## Main results
-
-### 1. Phase-covariant channels
-
-Fix an orthonormal basis of $`\mathbb{C}^d`$. Here **phase covariance** means covariance under every diagonal unitary in this basis:
-
-```math
-\mathcal{A}(U_{\boldsymbol{\theta}}\rho U_{\boldsymbol{\theta}}^{\dagger})
-=U_{\boldsymbol{\theta}}\mathcal{A}(\rho)U_{\boldsymbol{\theta}}^{\dagger},
-\qquad
-U_{\boldsymbol{\theta}}
-=\mathrm{diag}(e^{i\theta_1},\ldots,e^{i\theta_d}),
-\qquad
-\boldsymbol{\theta}\in\mathbb{R}^d.
-```
-
-The phases vary independently; covariance under a single Hamiltonian's time evolution is a different, generally weaker condition. The examples considered in the manuscript include phase-covariant multilevel amplitude-damping channels, generalized amplitude-damping channels, and damping–dephasing channels.
-
-**Theorem 1 (strong additivity for phase-covariant channels).** Let $`d\ge2`$, and let $`\mathcal{A}:\mathbb{M}_d\to\mathbb{M}_d`$ be phase covariant in the sense above. For every finite-dimensional channel $`\mathcal{M}`$,
-
-```math
-\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
-=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
-```
-
-**Lean verification:** [`phase_covariant_additivity` and `phase_covariant_angles_additivity`](SchurEntropy/PhaseCovariant/Results.lean). The hypothesis is actual covariance under every diagonal unitary in one fixed basis; the normal form is proved from it in [NormalForm.lean](SchurEntropy/PhaseCovariant/NormalForm.lean). The proof derives the pure-input entropy estimate from this repository's block inequality and applies the weaker entropic criterion at a diagonal optimal output center constructed by finite symmetry averaging. See the [corrected manuscript proof](docs/phase-covariant-proof-review.md) for the comparison input, noise-concavity step, and zero-weight conventions.
-
-The exported variants `phase_covariant_states_additivity` and `phase_covariant_in_basis_additivity` accept covariance tested only on density matrices and covariance in any specified fixed orthonormal basis, respectively. The Lean theorem covers every positive finite dimension, including the trivial one-dimensional case.
-
-### 2. Qubit-output channels
-
-**Decomposition lemma.** Every channel $`\mathcal A:\mathbb M_d\to\mathbb M_2`$, with $`d\ge1`$, admits a suitable output basis in which
-
-```math
-\mathcal A(\rho)=\sum_{s=1}^{d-1}K_s\rho K_s^\dagger
- +\sum_{i=0}^1\mathrm{Tr}(E_i\rho)|i\rangle\langle i|,
-\qquad K_s=|0\rangle\langle a_s|+|1\rangle\langle b_s|,
-```
-
-where $`E_i\ge0`$, zero vectors are allowed, and $`\sum_s K_s^\dagger K_s+E_0+E_1=I_d`$. Thus for $`d=2`$ there is at most one coherent Kraus operator. **Lean verification:** [`exists_qubit_output_decomposition_general`](SchurEntropy/Qubit/DecompositionGeneral.lean), including exactly $`d-1`$ slots by zero padding.
-
-**Theorem 2 (strong additivity for a class of qubit-output channels).** Let $`\mathcal{A}:\mathbb{M}_d\to\mathbb{M}_2`$. Suppose there exist an orthonormal basis $`\{|0\rangle,|1\rangle\}`$ of $`\mathbb{C}^2`$, positive semidefinite operators $`E_0,E_1\in\mathbb{M}_d`$, and possibly zero, unnormalized vectors $`|a_0\rangle,|a_1\rangle\in\mathbb{C}^d`$ such that
-
-```math
-\mathcal{A}(\rho)
-=K\rho K^{\dagger}
-+\sum_{i=0}^{1}\mathrm{Tr}(E_i\rho)|i\rangle\langle i|,
-\qquad
-K=|0\rangle\langle a_0|+|1\rangle\langle a_1|,
-```
-
-and
-
-```math
-|a_0\rangle\langle a_0|
-+|a_1\rangle\langle a_1|
-+E_0+E_1=I_d.
-```
-
-Then, for every finite-dimensional channel $`\mathcal{M}:A'\to B'`$,
-
-```math
-\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
-=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
-```
-
-In particular, every qubit-to-qubit channel $`\mathcal{A}:\mathbb{M}_2\to\mathbb{M}_2`$ satisfies strong additivity.
-
-**Lean verification:** [`single_coherent_qubit_output_additivity` and `all_qubit_channels_additivity`](SchurEntropy/Qubit/Results.lean). The first theorem allows arbitrary finite input dimension and the stated single coherent Kraus operator. The second has no channel-specific hypothesis. The proof constructs the compatible ensembles and applies this repository's Schur-weighted block entropy theorem and standard entropic criterion. A [checked and completed version of the manuscript argument](docs/qubit-proof-review.md) explains the basis-selection, positive-remainder, support, phase-alignment, and zero-weight steps.
-
 ## Entropic criteria for additivity
 
 The channel applications use a lower bound on the output entropy of a bipartite pure input. The distinction between the two criteria below is the amount of information that the auxiliary ensemble must preserve on the first input system.
 
 ### Standard criterion: preserve both reduced states
 
-The following sufficient condition is the pure-state ensemble formulation of convex-roof entropy superadditivity in [Holevo–Shirokov, Theorem 1(iv)](https://arxiv.org/abs/quant-ph/0306196), which relates that property to additivity under arbitrary input constraints.
+The following sufficient condition is the pure-state ensemble formulation of superadditivity of the convex closure of output entropy in [Holevo–Shirokov, Theorem 1(iv)](https://arxiv.org/abs/quant-ph/0306196), which relates that property to additivity under arbitrary input constraints.
 
 **Lemma (standard entropic criterion).** Let $`\mathcal{A}:A\to B`$ and $`\mathcal{M}:A'\to B'`$ be channels. Suppose that, for every bipartite pure state $`\psi=|\psi\rangle\langle\psi|`$ on $`AA'`$, with reduced states $`\rho_A`$ and $`\rho_{A'}`$, there exist finite ensembles of states $`\{p_\ell,\eta_\ell\}`$ on $`A`$ and $`\{q_k,\tau_k\}`$ on $`A'`$ such that
 
@@ -281,11 +218,11 @@ D_{\boldsymbol{y}}
 
 The deficit on the left uses pinching into the original blocks $`\mathbb{C}^{n_i}`$. The deficit on the right is evaluated on $`\mathbb{C}^m`$ and uses ordinary diagonal pinching.
 
-## Technical ingredients
+### Two analytic ingredients
 
 The proof of the block inequality uses two complementary properties of the entropy deficit: concavity after minimizing over the block-diagonal perturbation, and convexity of the scalar expression in its trace parameters.
 
-### Concavity after minimization
+#### Concavity after minimization
 
 **Lemma (optimized concavity).** Suppose
 
@@ -311,7 +248,7 @@ G_\Lambda(J,W).
 
 The minimum is attained, and the map $`J\mapsto\widehat G_\Lambda(J)`$ is concave on the positive semidefinite cone.
 
-### Joint convexity of the scalar expression
+#### Joint convexity of the scalar expression
 
 **Lemma (scalar joint convexity).** For every $`C\ge0`$ in $`\mathbb{M}_m`$, the function
 
@@ -325,6 +262,95 @@ D_{\boldsymbol{y}}
 
 is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses ordinary diagonal pinching.
 
+## Strong additivity for phase-covariant channels
+
+This is the main channel application of the block entropy inequality.
+
+Fix an orthonormal basis of $`\mathbb{C}^d`$. Here **phase covariance** means covariance under every diagonal unitary in this basis:
+
+```math
+\mathcal{A}(U_{\boldsymbol{\theta}}\rho U_{\boldsymbol{\theta}}^{\dagger})
+=U_{\boldsymbol{\theta}}\mathcal{A}(\rho)U_{\boldsymbol{\theta}}^{\dagger},
+\qquad
+U_{\boldsymbol{\theta}}
+=\mathrm{diag}(e^{i\theta_1},\ldots,e^{i\theta_d}),
+\qquad
+\boldsymbol{\theta}\in\mathbb{R}^d.
+```
+
+The phases vary independently; covariance under a single Hamiltonian's time evolution is a different, generally weaker condition. The manuscript applies this symmetry to multilevel amplitude-damping, generalized dephasing, and damping–dephasing channels, as well as generalized amplitude-damping channels. Each application requires covariance under the full diagonal unitary group in the specified basis.
+
+The [Singh–Nechita normal form](#references) expresses such a channel as
+
+```math
+\mathcal A(\rho)=C\odot\rho
++\sum_{i\ne j}p_{ij}\langle j|\rho|j\rangle |i\rangle\langle i|,
+\qquad C\succeq0,\quad p_{ij}\ge0,\quad
+\sum_i p_{ij}=1,\quad c_{ii}=p_{ii}.
+```
+
+Both covariance and Schur multiplication refer to the same fixed basis. The formalization proves this characterization from the covariance hypothesis.
+
+**Theorem (strong additivity for phase-covariant channels).** Let $`d\ge2`$, and let $`\mathcal{A}:\mathbb{M}_d\to\mathbb{M}_d`$ be phase covariant in the sense above. For every finite-dimensional channel $`\mathcal{M}`$,
+
+```math
+\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
+=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
+```
+
+**Lean verification:** [`phase_covariant_additivity` and `phase_covariant_angles_additivity`](SchurEntropy/PhaseCovariant/Results.lean). The hypothesis is actual covariance under every diagonal unitary in one fixed basis; the normal form is proved from it in [NormalForm.lean](SchurEntropy/PhaseCovariant/NormalForm.lean). The proof derives the pure-input entropy estimate from this repository's block inequality and applies the weaker entropic criterion at a diagonal optimal output center constructed by finite symmetry averaging. See the [corrected manuscript proof](docs/phase-covariant-proof-review.md) for the comparison input, noise-concavity step, and zero-weight conventions.
+
+The exported variants `phase_covariant_states_additivity` and `phase_covariant_in_basis_additivity` accept covariance tested only on density matrices and covariance in any specified fixed orthonormal basis, respectively. The Lean theorem covers every positive finite dimension, including the trivial one-dimensional case.
+
+## Qubit-output channels and the all-qubit result
+
+The same block inequality also yields strong additivity for channels with a qubit output and one coherent Kraus operator. Specializing to qubit inputs recovers Kenta Kitamura’s all-qubit strong-additivity result; see [Github Repository](https://github.com/KitaKen1/qubit-strong-additivity).
+
+**Decomposition lemma.** Every channel $`\mathcal A:\mathbb M_d\to\mathbb M_2`$, with $`d\ge1`$, admits a suitable output basis in which
+
+```math
+\mathcal A(\rho)=\sum_{s=1}^{d-1}K_s\rho K_s^\dagger
+ +\sum_{i=0}^1\mathrm{Tr}(E_i\rho)|i\rangle\langle i|,
+\qquad K_s=|0\rangle\langle a_s|+|1\rangle\langle b_s|,
+```
+
+where $`E_i\ge0`$, zero vectors are allowed, and $`\sum_s K_s^\dagger K_s+E_0+E_1=I_d`$. Thus for $`d=2`$ there is at most one coherent Kraus operator. **Lean verification:** [`exists_qubit_output_decomposition_general`](SchurEntropy/Qubit/DecompositionGeneral.lean), including exactly $`d-1`$ slots by zero padding.
+
+**Theorem (strong additivity for a class of qubit-output channels).** Let $`\mathcal{A}:\mathbb{M}_d\to\mathbb{M}_2`$. Suppose there exist an orthonormal basis $`\{|0\rangle,|1\rangle\}`$ of $`\mathbb{C}^2`$, positive semidefinite operators $`E_0,E_1\in\mathbb{M}_d`$, and possibly zero, unnormalized vectors $`|a_0\rangle,|a_1\rangle\in\mathbb{C}^d`$ such that
+
+```math
+\mathcal{A}(\rho)
+=K\rho K^{\dagger}
++\sum_{i=0}^{1}\mathrm{Tr}(E_i\rho)|i\rangle\langle i|,
+\qquad
+K=|0\rangle\langle a_0|+|1\rangle\langle a_1|,
+```
+
+and
+
+```math
+|a_0\rangle\langle a_0|
++|a_1\rangle\langle a_1|
++E_0+E_1=I_d.
+```
+
+Then, for every finite-dimensional channel $`\mathcal{M}:A'\to B'`$,
+
+```math
+\chi_{\max}(\mathcal{A}\otimes\mathcal{M})
+=\chi_{\max}(\mathcal{A})+\chi_{\max}(\mathcal{M}).
+```
+
+In particular, every qubit-to-qubit channel $`\mathcal{A}:\mathbb{M}_2\to\mathbb{M}_2`$ satisfies strong additivity.
+
+**Lean verification:** [`single_coherent_qubit_output_additivity` and `all_qubit_channels_additivity`](SchurEntropy/Qubit/Results.lean). The first theorem allows arbitrary finite input dimension and the stated single coherent Kraus operator. The second has no channel-specific hypothesis. The proof constructs the compatible ensembles and applies this repository's Schur-weighted block entropy theorem and standard entropic criterion. A [checked and completed version of the manuscript argument](docs/qubit-proof-review.md) explains the basis-selection, positive-remainder, support, phase-alignment, and zero-weight steps.
+
+## Discussion and open directions
+
+The qubit-output decomposition has at most $`d-1`$ coherent Kraus operators, whereas the additivity theorem above handles a single coherent Kraus operator. It therefore proves the all-qubit result when $`d=2`$, but does not establish strong additivity for every channel $`\mathbb M_d\to\mathbb M_2`$. Extending the entropy argument to multiple coherent Kraus operators is an open direction in the manuscript.
+
+The manuscript also proposes a conjecture about a dimension threshold for the equality $`\mathcal C(\mathcal A)=\chi_{\max}(\mathcal A)`$ among square channels $`\mathbb M_d\to\mathbb M_d`$: equality for every channel up to some $`N\ge3`$, and explicit counterexamples in every dimension above $`N`$. This is a conjecture, not a Lean theorem or a consequence of the results proved here. Equality for repeated uses of one channel is also weaker than strong additivity with every partner channel.
+
 ## Formalization index
 
 | Completed result | Lean declaration | Proof |
@@ -334,9 +360,9 @@ is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses o
 | Schur-weighted block entropy inequality | `SchurEntropy.block_entropy_inequality` | [Results.lean](SchurEntropy/Results.lean) |
 | Standard entropic criterion | `SchurEntropy.Capacity.standard_entropic_criterion` | [StandardCriterion.lean](SchurEntropy/Capacity/StandardCriterion.lean) |
 | Weaker output-center criterion | `SchurEntropy.Capacity.output_center_entropic_criterion` | [OutputCenterCriterion.lean](SchurEntropy/Capacity/OutputCenterCriterion.lean) |
-| Result 1: all fixed-basis phase-covariant channels | `SchurEntropy.PhaseCovariant.phase_covariant_additivity` | [PhaseCovariant/Results.lean](SchurEntropy/PhaseCovariant/Results.lean) |
+| All fixed-basis phase-covariant channels | `SchurEntropy.PhaseCovariant.phase_covariant_additivity` | [PhaseCovariant/Results.lean](SchurEntropy/PhaseCovariant/Results.lean) |
 | Fixed-basis phase-covariant normal form | `SchurEntropy.PhaseCovariant.phaseCovariant_iff_normalForm` | [NormalForm.lean](SchurEntropy/PhaseCovariant/NormalForm.lean) |
-| Result 2: single-coherent-Kraus qubit-output channels | `SchurEntropy.Qubit.single_coherent_qubit_output_additivity` | [Qubit/Results.lean](SchurEntropy/Qubit/Results.lean) |
+| Single-coherent-Kraus qubit-output channels | `SchurEntropy.Qubit.single_coherent_qubit_output_additivity` | [Qubit/Results.lean](SchurEntropy/Qubit/Results.lean) |
 | All qubit-to-qubit channels | `SchurEntropy.Qubit.all_qubit_channels_additivity` | [Qubit/Results.lean](SchurEntropy/Qubit/Results.lean) |
 | General qubit-output decomposition with at most $`d-1`$ coherent Kraus operators | `SchurEntropy.Qubit.exists_qubit_output_decomposition_general` | [DecompositionGeneral.lean](SchurEntropy/Qubit/DecompositionGeneral.lean) |
 
@@ -347,7 +373,9 @@ lake exe cache get
 ./scripts/check.sh
 ```
 
-The classical-capacity coding and regularization theorems are not separately formalized here.
+The recorded full build and axiom audit passed for **1,292** imported `SchurEntropy` declarations, with only `propext`, `Classical.choice`, and `Quot.sound` in their transitive axiom dependencies. The classical-capacity coding and regularization theorems and uniqueness of the optimal output center are cited background, not separately formalized results.
+
+The project builds on Kitamura’s matrix and channel-entropy library, pinned at commit `90e61c463deb42067c109c46f048c6374dfc5945`; see [Github Repository](https://github.com/KitaKen1/qubit-strong-additivity/tree/90e61c463deb42067c109c46f048c6374dfc5945). It imports the generic standard entropic criterion and adapts several matrix-calculus and channel arguments. The local channel theorems derive their entropy bounds from this repository’s Schur-weighted block inequality. Source provenance and licenses are recorded in [third_party/NOTICE](third_party/NOTICE).
 
 ## References
 
@@ -355,7 +383,22 @@ The classical-capacity coding and regularization theorems are not separately for
 2. B. Schumacher and M. D. Westmoreland, **“Sending classical information via noisy quantum channels.”** *Physical Review A* **56**, 131–138 (1997). [DOI:10.1103/PhysRevA.56.131](https://doi.org/10.1103/PhysRevA.56.131).
 3. A. S. Holevo and M. E. Shirokov, **“On Shor's channel extension and constrained channels.”** *Communications in Mathematical Physics* **249**, 417–430 (2004). [arXiv:quant-ph/0306196](https://arxiv.org/abs/quant-ph/0306196).
 4. B. Schumacher and M. D. Westmoreland, **“Optimal signal ensembles.”** *Physical Review A* **63**, 022308 (2001). [arXiv:quant-ph/9912122](https://arxiv.org/abs/quant-ph/9912122). [DOI:10.1103/PhysRevA.63.022308](https://doi.org/10.1103/PhysRevA.63.022308).
+5. S. Singh and I. Nechita, **“Diagonal unitary and orthogonal symmetries in quantum theory.”** *Quantum* **5**, 519 (2021). [DOI:10.22331/q-2021-08-09-519](https://doi.org/10.22331/q-2021-08-09-519).
+6. OpenAI, **“Classical capacity and entropy inequalities for generalized amplitude damping.”** OpenAI Math Release preprint (2026). [Github Repository](https://github.com/openai/math/blob/main/preprints/Classical-capacity-and-entropy-inequalities-for-generalized-amplitude-damping-September-24-2026/paper.pdf).
+7. K. Kitamura, **“Lean proof of strong Holevo additivity for qubit channels.”** (2026). [Github Repository](https://github.com/KitaKen1/qubit-strong-additivity).
 
 ## Citation
 
-The manuscript **“A Schur-weighted block entropy inequality and its application to classical capacity of quantum channels”** is in preparation. A complete bibliographic entry and an archival link will be added when available.
+Peixue Wu, **“Classical communication over quantum channels: does entanglement help in nature?”** Manuscript in preparation (2026). Formal proofs: [Github Repository](https://github.com/pxwu24/additivity-of-classical-communication).
+
+For the repository, the following BibTeX entry uses a clickable name rather than printing the URL (with `hyperref` enabled):
+
+```bibtex
+@misc{Wu2026LeanAdditivity,
+  author = {Peixue Wu},
+  title = {Additivity of classical communication: Lean verification},
+  year = {2026},
+  howpublished = {Lean companion to {Classical communication over quantum channels: does entanglement help in nature?}},
+  note = {\href{https://github.com/pxwu24/additivity-of-classical-communication}{Github Repository}}
+}
+```
