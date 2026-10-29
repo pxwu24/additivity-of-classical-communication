@@ -16,7 +16,7 @@ while, for every $`d>N`$, there is an explicit channel $`\mathcal A:\mathbb M_d\
 \mathcal C(\mathcal A)>\chi_{\max}(\mathcal A).
 ```
 
-The threshold problem remains open. The current progress in the manuscript is:
+The above problem remains open. The current progress in the manuscript is:
 
 | Channel class | Result | Manuscript |
 | --- | --- | --- |
