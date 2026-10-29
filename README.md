@@ -1,8 +1,8 @@
 # A Schur-weighted block entropy inequality and its application to classical capacity of quantum channels
 
-This repository is the Lean companion to the forthcoming paper of the same title. It contains formal proofs of a Schur-weighted block entropy inequality and two entropic criteria for Holevo additivity. The manuscript's channel applications are described below.
+This repository is the Lean companion to the forthcoming paper of the same title. It contains formal proofs of a Schur-weighted block entropy inequality, two entropic criteria for Holevo additivity, and strong additivity for the manuscript's single-coherent-Kraus qubit-output class, including all qubit-to-qubit channels.
 
-**Current status:** five manuscript results are fully proved in Lean: the optimized concavity lemma (including minimum attainment), the scalar joint-convexity lemma, the Schur-weighted block entropy inequality, and both entropic criteria for additivity. The matrix results cover positive semidefinite inputs and zero trace parameters; the weaker criterion includes singular optimal output centers. The phase-covariant and qubit-output channel applications remain future formalization work. See the [verification index](docs/verification.md) and [axiom audit](Audit.lean).
+**Current status:** the optimized concavity lemma (including minimum attainment), scalar joint convexity, the Schur-weighted block entropy inequality, both entropic criteria, the general qubit-output decomposition lemma, and **Result 2 below, including all qubit-to-qubit channels**, are fully proved in Lean. The proofs include singular matrices, zero weights, and singular optimal output centers. The phase-covariant application remains future formalization work. See the [verification index](docs/verification.md) and [axiom audit](Audit.lean).
 
 ## Contents
 
@@ -82,6 +82,16 @@ The phases vary independently; covariance under a single Hamiltonian's time evol
 
 ### 2. Qubit-output channels
 
+**Decomposition lemma.** Every channel $`\mathcal A:\mathbb M_d\to\mathbb M_2`$, with $`d\ge1`$, admits a suitable output basis in which
+
+```math
+\mathcal A(\rho)=\sum_{s=1}^{d-1}K_s\rho K_s^\dagger
+ +\sum_{i=0}^1\mathrm{Tr}(E_i\rho)|i\rangle\langle i|,
+\qquad K_s=|0\rangle\langle a_s|+|1\rangle\langle b_s|,
+```
+
+where $`E_i\ge0`$, zero vectors are allowed, and $`\sum_s K_s^\dagger K_s+E_0+E_1=I_d`$. Thus for $`d=2`$ there is at most one coherent Kraus operator. **Lean verification:** [`exists_qubit_output_decomposition_general`](SchurEntropy/Qubit/DecompositionGeneral.lean), including exactly $`d-1`$ slots by zero padding.
+
 **Theorem 2 (strong additivity for a class of qubit-output channels).** Let $`\mathcal{A}:\mathbb{M}_d\to\mathbb{M}_2`$. Suppose there exist an orthonormal basis $`\{|0\rangle,|1\rangle\}`$ of $`\mathbb{C}^2`$, positive semidefinite operators $`E_0,E_1\in\mathbb{M}_d`$, and possibly zero, unnormalized vectors $`|a_0\rangle,|a_1\rangle\in\mathbb{C}^d`$ such that
 
 ```math
@@ -108,6 +118,8 @@ Then, for every finite-dimensional channel $`\mathcal{M}:A'\to B'`$,
 ```
 
 In particular, every qubit-to-qubit channel $`\mathcal{A}:\mathbb{M}_2\to\mathbb{M}_2`$ satisfies strong additivity.
+
+**Lean verification:** [`single_coherent_qubit_output_additivity` and `all_qubit_channels_additivity`](SchurEntropy/Qubit/Results.lean). The first theorem allows arbitrary finite input dimension and the stated single coherent Kraus operator. The second has no channel-specific hypothesis. The proof constructs the compatible ensembles and applies this repository's Schur-weighted block entropy theorem and standard entropic criterion. A [checked and completed version of the manuscript argument](docs/qubit-proof-review.md) explains the basis-selection, positive-remainder, support, phase-alignment, and zero-weight steps.
 
 ## Entropic criteria for additivity
 
@@ -318,6 +330,9 @@ is jointly convex on $`[0,\infty)^m\times[0,\infty)^m`$. Here the deficit uses o
 | Schur-weighted block entropy inequality | `SchurEntropy.block_entropy_inequality` | [Results.lean](SchurEntropy/Results.lean) |
 | Standard entropic criterion | `SchurEntropy.Capacity.standard_entropic_criterion` | [StandardCriterion.lean](SchurEntropy/Capacity/StandardCriterion.lean) |
 | Weaker output-center criterion | `SchurEntropy.Capacity.output_center_entropic_criterion` | [OutputCenterCriterion.lean](SchurEntropy/Capacity/OutputCenterCriterion.lean) |
+| Result 2: single-coherent-Kraus qubit-output channels | `SchurEntropy.Qubit.single_coherent_qubit_output_additivity` | [Qubit/Results.lean](SchurEntropy/Qubit/Results.lean) |
+| All qubit-to-qubit channels | `SchurEntropy.Qubit.all_qubit_channels_additivity` | [Qubit/Results.lean](SchurEntropy/Qubit/Results.lean) |
+| General qubit-output decomposition with at most $`d-1`$ coherent Kraus operators | `SchurEntropy.Qubit.exists_qubit_output_decomposition_general` | [DecompositionGeneral.lean](SchurEntropy/Qubit/DecompositionGeneral.lean) |
 
 The [verification index](docs/verification.md) records the exact scope, supporting results, pinned dependencies, and audit procedure. To reproduce the checks with Lean's `elan` version manager installed:
 
@@ -326,7 +341,7 @@ lake exe cache get
 ./scripts/check.sh
 ```
 
-The phase-covariant and qubit-output channel applications, and the classical-capacity coding and regularization theorems, are not yet formalized here.
+The phase-covariant application and the classical-capacity coding and regularization theorems are not yet formalized here.
 
 ## References
 

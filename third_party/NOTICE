@@ -40,6 +40,15 @@ Further adapted source from the same upstream project and commit:
   SchurEntropy/StrictLogOrder.lean          BetaLogOrder.lean
   SchurEntropy/Capacity/WeakReduction.lean  UpperBound.lean
   SchurEntropy/Capacity/GibbsMatrix.lean    BetaDualExistence.lean
+  SchurEntropy/Qubit/OutputForm.lean        TwoExpectation.lean, Partner.lean
+  SchurEntropy/Qubit/Representation.lean    NormalChannel.lean
+  SchurEntropy/Qubit/ChannelBoundAlgebra.lean Partner.lean
+  SchurEntropy/Qubit/ChannelBound.lean      PureInput.lean
+  SchurEntropy/Qubit/EnsembleEntropy.lean   TwoExpectation.lean
+  SchurEntropy/Qubit/DecompositionAlgebra.lean NormalForm.lean, NormalKraus.lean
+  SchurEntropy/Qubit/DecompositionRotation.lean NormalForm.lean
+  SchurEntropy/Qubit/DecompositionGeneral.lean NormalChannel.lean
+  SchurEntropy/Qubit/PSDFactor.lean         NormalSchur.lean, NormalCommonBranch.lean
 
 Upstream paths above are relative to lean/QubitAdditivity/ in
 https://github.com/KitaKen1/qubit-strong-additivity at commit
@@ -61,6 +70,21 @@ adapts the scalar-line derivative argument to prove the entropy tangent bound.
 The generic standard entropic criterion in UpperBound.lean is imported directly
 from the pinned dependency; the local StandardCriterion.lean proves its exact
 conversion to the manuscript's entropy convention in bits.
+
+The Qubit/OutputForm, ChannelBoundAlgebra, ChannelBound, and EnsembleEntropy
+adaptations replace the two-dimensional input space by an arbitrary finite
+input space. The local scalar ensemble construction and block-entropy bridge
+discharge the required entropy estimates. DecompositionAlgebra and
+DecompositionRotation generalize the row Gram and polynomial rotation
+arguments to arbitrary input dimension. PSDFactor generalizes the positive
+Schur-complement and compactness construction to an arbitrary fixed number
+of common Kraus columns. The exact channel additivity results are assembled
+locally from these ingredients and this repository's block entropy theorem.
+
+DecompositionRotation.lean also follows the determinant coefficient proof
+pattern in Mathlib/LinearAlgebra/Matrix/Polynomial.lean, mathlib commit
+5ed2965256430c3649e86755f9576b54eca72435, licensed under Apache-2.0:
+https://github.com/leanprover-community/mathlib4
 
 Relevant upstream notice, reproduced below (paths refer to the upstream
 project):

@@ -1,6 +1,6 @@
 # Verification status
 
-The two analytic lemmas, the Schur-weighted block entropy inequality, and both entropic criteria for Holevo additivity are proved in Lean 4. Their exported theorems have no additional analytic hypotheses beyond the stated criteria. The definitions use actual complex matrices and spectral entropy in bits, with `0 log 0 = 0`; the channel results use concrete completely positive trace-preserving maps and finite ensembles of density matrices.
+The two analytic lemmas, the Schur-weighted block entropy inequality, both entropic criteria, and Result 2 (including all qubit-to-qubit channels) are proved in Lean 4. Their exported theorems have exactly the stated mathematical hypotheses. The definitions use actual complex matrices and spectral entropy in bits, with `0 log 0 = 0`; the channel results use concrete completely positive trace-preserving maps and finite ensembles of density matrices.
 
 ## Completed manuscript results
 
@@ -11,6 +11,9 @@ The two analytic lemmas, the Schur-weighted block entropy inequality, and both e
 | Schur-weighted block entropy inequality | `SchurEntropy.block_entropy_inequality : BlockEntropyStatement` | [Results.lean](../SchurEntropy/Results.lean) |
 | Standard entropic criterion | `SchurEntropy.Capacity.standard_entropic_criterion` | [StandardCriterion.lean](../SchurEntropy/Capacity/StandardCriterion.lean) |
 | Weaker output-center criterion | `SchurEntropy.Capacity.output_center_entropic_criterion` | [OutputCenterCriterion.lean](../SchurEntropy/Capacity/OutputCenterCriterion.lean) |
+| Single-coherent-Kraus qubit-output channels | `SchurEntropy.Qubit.single_coherent_qubit_output_additivity` | [Qubit/Results.lean](../SchurEntropy/Qubit/Results.lean) |
+| All qubit-to-qubit channels | `SchurEntropy.Qubit.all_qubit_channels_additivity` | [Qubit/Results.lean](../SchurEntropy/Qubit/Results.lean) |
+| General qubit-output decomposition | `SchurEntropy.Qubit.exists_qubit_output_decomposition_general` | [DecompositionGeneral.lean](../SchurEntropy/Qubit/DecompositionGeneral.lean) |
 
 [Definitions.lean](../SchurEntropy/Definitions.lean) specifies the three matrix propositions. [Capacity/Definitions.lean](../SchurEntropy/Capacity/Definitions.lean) and [Capacity/CriterionStatements.lean](../SchurEntropy/Capacity/CriterionStatements.lean) specify the two entropic hypotheses. [Audit.lean](../Audit.lean) checks the exported matrix types and both channel conclusions with their full ensemble hypotheses exposed.
 
@@ -18,7 +21,21 @@ The optimized lemma proves attainment of the literal `sInf`-defined value over a
 
 Both criteria conclude `holevoInformation (Φ ⊗ᶜᵖ Ω) = holevoInformation Φ + holevoInformation Ω` for arbitrary finite-dimensional CPTP maps with nonempty input spaces. The standard hypothesis preserves both reduced input states. The weaker hypothesis preserves only the first output's logarithmic expectation at an optimal center, together with the second reduced input state. Both require the manuscript's entropy bound for every bipartite pure input.
 
-The phase-covariant and qubit-output applications, the classical-capacity coding and regularization theorems, and uniqueness of the optimal output center are not separately formalized here.
+The phase-covariant application, the classical-capacity coding and regularization theorems, and uniqueness of the optimal output center are not separately formalized here.
+
+## Result 2 and the qubit application
+
+[Qubit/Representation.lean](../SchurEntropy/Qubit/Representation.lean) gives the literal single coherent Kraus operator and two positive effects. The final theorem accepts an output unitary, arbitrary coherent vectors, positive semidefinite effects, the stated completeness identity, and equality of the channel formula on all complex input matrices. No scalar entropy bound, block inequality, or entropic criterion is assumed in its final statement.
+
+[Qubit/EnsembleBound.lean](../SchurEntropy/Qubit/EnsembleBound.lean) constructs a finite ensemble preserving the first reduced state and balancing the two coherent probabilities. The formal construction uses a finite spectral sign frame in place of the manuscript's Fourier basis. Both give the same zero-expectation property. For each positive-weight atom, the two-by-two output entropy agrees with that of its phase-aligned scalar matrix; the formal proof establishes this using equality of trace and determinant. Zero atoms contribute zero without division by zero.
+
+[Qubit/BlockEntropyBridge.lean](../SchurEntropy/Qubit/BlockEntropyBridge.lean) derives the required four-block entropy inequality directly from `SchurEntropy.block_entropy_inequality`, using the all-ones two-by-two coefficient matrix. [Qubit/ChannelBound.lean](../SchurEntropy/Qubit/ChannelBound.lean) combines it with the scalar bound and a compatible partner ensemble to prove the standard entropic criterion. The partner ensemble resolves the two noise effects into pure Kraus branches; entropy concavity justifies this refinement. [Qubit/Results.lean](../SchurEntropy/Qubit/Results.lean) applies the already-verified standard criterion and output-unitary invariance.
+
+[Qubit/DecompositionGeneral.lean](../SchurEntropy/Qubit/DecompositionGeneral.lean) proves the full decomposition lemma for every channel from a nonempty finite input space to a qubit. A holomorphic determinant polynomial provides a suitable output basis. A rank factorization and positive block-matrix argument produce positive residual effects; zero padding gives exactly `dim(input) - 1` coherent Kraus slots. The statement includes the completeness identity and equality on every complex input matrix, with no invertibility assumption. The formal positive-factor construction uses Schur complements and a compactness limit rather than an explicit pseudoinverse/SVD.
+
+`all_qubit_channels_additivity` specializes this general decomposition to input dimension two. It has only the actual channel arguments and finite, nonempty input spaces. The proof does not import a completed upstream channel-additivity theorem: its entropy estimate comes from this repository's Schur theorem. The pinned dependency supplies standard matrix/channel infrastructure and the proof patterns generalized here; adaptations are recorded in the source notice.
+
+The [proof check](qubit-proof-review.md) supplies the missing details in the manuscript's determinant argument, positivity of the residual effects, support restriction, phase alignment, and zero-weight conventions.
 
 ## Entropic-criterion foundations
 
@@ -66,6 +83,6 @@ lake exe cache get
 ./scripts/check.sh
 ```
 
-The [check script](../scripts/check.sh) runs the project build and [Audit.lean](../Audit.lean). The audit traverses every imported declaration in the `SchurEntropy` namespace and rejects any transitive axiom other than `propext`, `Classical.choice`, and `Quot.sound`. In particular, it rejects `sorryAx`, including through imported proofs. It also prints the transitive axioms and checks the exact types of all five completed manuscript results, as well as the weaker criterion for any specified optimal ensemble.
+The [check script](../scripts/check.sh) runs the project build and [Audit.lean](../Audit.lean). The audit traverses every imported declaration in the `SchurEntropy` namespace and rejects any transitive axiom other than `propext`, `Classical.choice`, and `Quot.sound`. In particular, it rejects `sorryAx`, including through imported proofs. It also prints the transitive axioms and checks the exact types of the matrix results, both criteria, the weaker criterion for any specified optimal ensemble, the general decomposition lemma, and both Result 2 conclusions with the positive-effect representation exposed.
 
 Source provenance and the licenses of adapted excerpts are recorded in [third_party/NOTICE](../third_party/NOTICE).

@@ -26,6 +26,9 @@ run_cmd do
 #print axioms SchurEntropy.Capacity.output_center_criterion_of_optimal_ensemble
 #print axioms SchurEntropy.Capacity.exists_optimalEnsemble
 #print axioms SchurEntropy.Capacity.optimal_center_support
+#print axioms SchurEntropy.Qubit.single_coherent_qubit_output_additivity
+#print axioms SchurEntropy.Qubit.all_qubit_channels_additivity
+#print axioms SchurEntropy.Qubit.exists_qubit_output_decomposition_general
 
 example : SchurEntropy.OptimizedConcavityStatement := SchurEntropy.optimizedConcavity
 example : SchurEntropy.ScalarConvexityStatement := SchurEntropy.scalar_joint_convexity
@@ -69,3 +72,44 @@ example (Φ : CPTPMap d e) (Ω : CPTPMap f g) {α : Type*} [Fintype α]
   output_center_criterion_of_optimal_ensemble Φ Ω E hE h
 
 end CapacityStatements
+
+/-! Result 2 with the actual channel representation and completeness exposed. -/
+section QubitStatements
+open Matrix QubitAdditivity SchurEntropy.Capacity SchurEntropy.Qubit
+open scoped Matrix BigOperators MatrixMap ComplexOrder
+
+variable {D dB eB : Type*}
+variable [Fintype D] [DecidableEq D] [Nonempty D]
+variable [Fintype dB] [DecidableEq dB] [Nonempty dB]
+variable [Fintype eB] [DecidableEq eB]
+
+example (Φ : CPTPMap D (Fin 2)) (Ω : CPTPMap dB eB)
+    (U : Matrix.unitaryGroup (Fin 2) ℂ)
+    (a c : D → ℂ) (E₀ E₁ : Matrix D D ℂ)
+    (h₀ : E₀.PosSemidef) (h₁ : E₁.PosSemidef)
+    (hcomplete : vecMulVec a (star a) + vecMulVec c (star c) + E₀ + E₁ = 1)
+    (hact : ∀ X : Matrix D D ℂ,
+      (U : Matrix (Fin 2) (Fin 2) ℂ) * Φ.map X * (U : Matrix (Fin 2) (Fin 2) ℂ)ᴴ =
+        QubitOutputForm.rows a c * X * (QubitOutputForm.rows a c)ᴴ +
+          Matrix.diagonal (fun i => if i = 0 then (E₀ * X).trace else (E₁ * X).trace)) :
+    holevoInformation (Φ ⊗ᶜᵖ Ω) = holevoInformation Φ + holevoInformation Ω :=
+  single_coherent_qubit_output_additivity Φ Ω U a c E₀ E₁ h₀ h₁ hcomplete hact
+
+example (Φ : CPTPMap (Fin 2) (Fin 2)) (Ω : CPTPMap dB eB) :
+    holevoInformation (Φ ⊗ᶜᵖ Ω) = holevoInformation Φ + holevoInformation Ω :=
+  all_qubit_channels_additivity Φ Ω
+
+example (Φ : CPTPMap D (Fin 2)) :
+    ∃ U : Matrix.unitaryGroup (Fin 2) ℂ,
+    ∃ a b : Fin (Fintype.card D - 1) → D → ℂ, ∃ E₀ E₁ : Matrix D D ℂ,
+      E₀.PosSemidef ∧ E₁.PosSemidef ∧
+      (∑ j, (vecMulVec (a j) (star (a j)) + vecMulVec (b j) (star (b j)))) +
+        E₀ + E₁ = 1 ∧
+      ∀ X : Matrix D D ℂ,
+        (U : Matrix (Fin 2) (Fin 2) ℂ) * Φ.map X * (U : Matrix (Fin 2) (Fin 2) ℂ)ᴴ =
+          (∑ j, QubitOutputForm.rows (a j) (b j) * X *
+            (QubitOutputForm.rows (a j) (b j))ᴴ) +
+          Matrix.diagonal (fun i => if i = 0 then (E₀ * X).trace else (E₁ * X).trace) :=
+  exists_qubit_output_decomposition_general Φ
+
+end QubitStatements
